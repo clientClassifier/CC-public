@@ -1,0 +1,87 @@
+//
+ mixin sensors(compare, title, link)
+  p hey sensors
+
+mixin client(fName,mName,lName, link, current)
+  if(link == current)
+    li.active 
+      a(href= '/agent/#{agentId}/calculator/#{link}')
+        i.icon-user
+        | #{fName} #{mName} #{lName}
+  else
+    li 
+      a(href= '/agent/#{agentId}/calculator/#{link}')
+        i.icon-user
+        | #{fName} #{mName} #{lName}
+
+
+br
+
+.well(style='padding: 8px 0;')
+  ul.nav.nav-list
+    li.nav-header User Actions
+    if title == 'agentIndex'
+      li.active
+        a(href='/agent/#{agentId}')
+          i.icon.icon-home 
+          |  Home
+    else
+      li 
+        a(href='/agent/#{agentId}')
+          i.icon.icon-home 
+          |  Home  
+    if title == 'tasks'
+      li.active
+        a(href='/agent/#{agentId}/tasks')
+          i.icon.icon-tasks 
+          |  Tasks
+    else
+      li 
+        a(href='/agent/#{agentId}/tasks')
+          i.icon.icon-tasks 
+          |  Task        
+    if title == 'anlytics'
+      li.active
+        a(href='/agent/#{agentId}/analytics')
+          i.icon.icon-signal 
+          |  Analytics
+    else
+      li 
+        a(href='/agent/#{agentId}/analytics')
+          i.icon.icon-signal 
+          |  Analytics  
+
+
+
+
+
+
+
+      //- my One major problem with this sort solution, is what if its something not A+,A,B,C,D how do i catch that? (long conditional?)
+    li.nav-header Days  
+      span.label.label-success.pull-right.isMoney  #{totCommissions.daysCommission}
+      if(clients != null)
+        each client in clients
+          if(client.calculator.grade == 'A+' || client.calculator.grade == 'A')
+            mixin client(client.firstName, client.middleName, client.lastName, client._id, currentClientId)  
+    li.nav-header Weeks
+      span.label.label-success.pull-right.isMoney  #{totCommissions.weeksCommission}
+      if(clients != null)
+        each client in clients
+          if(client.calculator.grade == 'B' || client.calculator.grade == 'C')
+            mixin client(client.firstName, client.middleName, client.lastName, client._id, currentClientId)  
+    li.nav-header Months
+      span.label.label-success.pull-right.isMoney  #{totCommissions.monthsCommission}
+      if(clients != null)
+        each client in clients
+          if(client.calculator.grade == 'D' || client.calculator.grade == '')
+            mixin client(client.firstName, client.middleName, client.lastName, client._id, currentClientId)  
+
+
+
+
+
+
+
+
+

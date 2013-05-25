@@ -1,0 +1,100 @@
+extends ../layout
+
+
+block contents
+  .container
+    br
+    .hero-unit
+      h1 Contact us
+      p Reach us at contact@clientclassifier.com
+
+    - if(typeof(contactErrors) != 'undefined')
+      each err in contactErrors
+          each val,key in err
+            - if(key == 'msg')
+              .alert.alert-error.alert-block
+                a.close(data-dismiss='alert', href='#') ×
+                h4.alert-heading Error!
+                p #{val}
+
+    form.well.form-horizontal#ContacUs(action='/contactus', method='post')
+          fieldset
+            .control-group
+              label.control-label(for='Email') Email
+              .controls
+                input#email.span3(type='text', name='email', placeholder = 'Email')
+            .control-group
+              label.control-label(for='Subject') Subject
+              .controls
+                input#subject.onlyCharactersWithSpace.span3(type='text',name='subject', placeholder='Subject')
+            .control-group
+              label.control-label(for='Body') Body
+              .controls
+                textarea#body.onlyCharactersWithSpace(name='body', rows='4')
+                br                
+            .form-actions
+              button.btn.btn-success(type='submit') Send
+     
+
+  prepend footer
+    hr
+    .row
+      .span2
+        p 
+      .span2
+        p 
+      .span2
+        p 
+      .span2
+        a(href='/termsandconditions') Terms of service
+      .span2
+        a(href='/privacypolicy') Privacy policy
+      .span2
+        a(href='/contactus') Contact us
+
+append footer
+  script(src = '/js/libs/jquery.validate.min.js')
+  script(src = '/js/enter.js')
+  script(src = '/js/libs/jquery.maskInput.min.js')
+  script
+    $(document).ready(function(){
+
+      
+       $('.onlyCharactersWithSpace').keyup(function() {
+        $(this).val($(this).val().replace(/[^A-Za-z0-9 .!?,]/g,''));
+        });
+      
+      $('#ContacUs').validate({
+        rules: {
+          email: {
+            required: true,
+            email: true
+          },
+          subject: {
+            required: true
+          },
+          body: {
+            required: true
+          }
+        },
+        highlight: function(label) {
+          $(label).closest('.control-group').addClass('error');
+        },
+        success: function(label) {
+          label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        messages: {
+          email:{
+            required: "Please enter your email"
+          },
+          subject: {
+            required: "Please enter your subject"
+          },
+          body: {
+            required: "Please enter your comment"
+          }
+        }
+      }); 
+    })

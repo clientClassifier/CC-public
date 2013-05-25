@@ -1,0 +1,101 @@
+//
+ mixin sensors(compare, title, link)
+  p hey sensors
+
+mixin client(fName,mName,lName, link, current)
+  if(link == current)
+    li.active 
+      a(href= '/loanofficer/#{agentId}/client/#{link}')
+        i.icon-user
+        | #{fName} #{mName} #{lName}
+  else
+    li 
+      a(href= '/loanofficer/#{agentId}/client/#{link}')
+        i.icon-user
+        | #{fName} #{mName} #{lName}
+
+
+
+
+
+
+br
+
+.well(style='padding: 8px 0;')
+  ul.nav.nav-list
+    li.nav-header User Actions
+    - var unassignedActive = (title == 'unassigned' ? 'active' : '')
+    - if(privileges != 0)
+      li(class = unassignedActive)
+        a(href='/loanofficer/#{agentId}/unassigned')
+          i.icon.icon-list 
+          |  Prospects  
+          span.badge.badge-success #{numUnassigned}
+
+
+    if title == 'loanOfficerIndex'
+      li.active
+        a(href='/loanofficer/#{agentId}')
+          i.icon.icon-home
+          | Home
+    else
+      li 
+        a(href='/loanofficer/#{agentId}')
+          i.icon.icon-home 
+          |  Home  
+
+
+       //- my One major problem with this sort solution, is what if its something not A+,A,B,C,D how do i catch that? (long conditional?)
+    li.nav-header Days
+      if(clients != null)
+        each client in clients
+          if(client.calculator.grade == 'A+' || client.calculator.grade == 'A')
+            mixin client(client.firstName, client.middleName, client.lastName, client._id, currentClientId)  
+    li.nav-header Weeks
+      if(clients != null)
+        each client in clients
+          if(client.calculator.grade == 'B' || client.calculator.grade == 'C')
+            mixin client(client.firstName, client.middleName, client.lastName, client._id, currentClientId)  
+    li.nav-header Months
+      if(clients != null)
+        each client in clients
+          if(client.calculator.grade == 'D' || client.calculator.grade == '')
+            mixin client(client.firstName, client.middleName, client.lastName, client._id, currentClientId)  
+
+
+
+
+
+
+
+//-
+  .well(style='padding: 8px 0;')
+      ul.nav.nav-list
+          li.nav-header List header
+          li.active
+            a(href='#')
+              i.icon-white.icon-home
+              | Home
+          li
+            a(href='#')
+              i.icon-book
+              | Library
+          li
+            a(href='#')
+              i.icon-pencil
+              | Applications
+          li.nav-header Another list header
+          li
+            a(href='#')
+              i.icon-user
+              | Profile
+          li
+            a(href='#')
+              i.icon-cog
+              | Settings
+          li.divider
+          li
+            a(href='#')
+              i.icon-flag
+              | Help
+

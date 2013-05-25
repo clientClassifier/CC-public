@@ -1,0 +1,130 @@
+extends ../layout
+
+
+
+block contents
+  .container
+    .row
+      .span6
+        h2 Register as a loan office
+        form.well.form-horizontal#registerLoanOfficer(action='/loanOfficer-mysupersecretstringthatnooneshouldevertypeinbecausewhywouldtheytypesomethingthislong', method='post')
+          fieldset
+            .control-group
+              label.control-label(for='firstName') First name    
+              .controls.controls-row
+                  input.onlyCharacters.span2(type='text', name='firstName', placeholder='First Name')
+            .control-group
+              label.control-label(for='lastName') Last name
+              .controls
+                input.onlyCharacters.span2(type='text', name='lastName', placeholder = 'Last name')
+            .control-group
+              label.control-label(for='email') Email
+              .controls
+                input#emailLO.span2(type='text', name='email', placeholder = 'Email')
+            .control-group
+              label.control-label(for='confirmEmail') Confirm Email
+              .controls
+                input#confirmEmail.span2(type='text', name='confirmEmail', placeholder = 'Confirm Email')
+            .control-group
+              label.control-label(for='password') Password
+              .controls
+                input#password.span2(type='password', name='password' ,placeholder = 'Password')
+            .control-group
+              label.control-label(for='cellPhone') Cell Phone
+              .controls
+                input#cellPhone.span2.isPhoneInput(type='text',  name='cellPhone', placeholder = 'xxx - xxx - xxxx')
+            .control-group
+              label.control-label(for='NMLSID') NMLS ID
+              .controls
+                input#NMLSID.span2(type='text',  name='NMLSID', placeholder = 'NMLS ID')           
+            .form-actions
+              button.btn.btn-success(type='submit') Register
+
+        - if(typeof(errorsRegister) != 'undefined')
+          each err in errorsRegister
+            each val,key in err
+              - if(key == 'msg')
+                .alert.alert-error.alert-block
+                  a.close(data-dismiss='alert', href='#') ×
+                  h4.alert-heading Error!
+                  p #{val}
+
+
+
+
+append footer  
+  script(src = '/js/libs/jquery.validate.min.js')
+  script(src = '/js/libs/jquery.maskInput.min.js')
+  script
+    $(document).ready(function () {
+      $("#cellPhone").mask("(999) 999-9999");
+      $(".isPhoneInput").mask("(999) 999-9999");
+      $('#NMLSID').keyup(function() {
+        $(this).val($(this).val().replace(/[^0-9]/g,''))
+      });
+      $('#registerLoanOfficer').validate({
+        rules: {
+          firstName: {
+            required: true
+          },
+          lastName: {
+            required: true
+          },
+          email: {
+            required: true,
+            email: true
+          },
+          confirmEmail: {
+            required: true,
+            email: true,
+            equalTo: '#emailLO'
+          },
+          password: {
+            minlength: 9, //temp because i dont want to enter a whole password
+            required: true
+          },
+          cellPhone: {
+            required: true
+          },
+          NMLSID: {
+            required: true,
+            minlength: 4,
+            maxlength: 7
+          },
+        },
+        highlight: function(label) {
+          $(label).closest('.control-group').addClass('error');
+        },
+        success: function(label) {
+          label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        messages: {
+          firstName:{
+            required: "Please enter your first name"
+          },
+          lastName:{
+            required: "Please enter your last name"
+          },
+          email:{
+            required: "Please enter your email"
+          },
+          confirmEmail:{
+            equalTo: "Enter the same email address",
+            required: "Please confirm your email address"
+          },
+          password: {
+            required: "Please enter your password"
+          },
+          cellPhone: {
+            required: "Please enter your cell phone number"
+          },
+          NMLSID: {
+            required: "Please enter your cell NMLS ID",
+            minlength: "Too few numbers were inputted",
+            maxlength: "Too many numbers were inputted"
+          },
+        }
+      });
+    });

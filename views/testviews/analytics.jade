@@ -1,0 +1,35 @@
+
+extends ../layout
+
+
+
+block contents
+  .container
+    .row
+      .span3
+        //- include ../Blocks/sidebar
+      .span9
+        .row
+          .span
+            img#homeshift(src='/img/HOMEICON3.jpg', width='50', height='50' )
+          .span7
+            h2 Welcome 
+        .row
+    
+
+
+append footer
+  script(src = '/js/libs/jquery.validate.min.js')
+  script(src = '/js/libs/jquery.maskInput.min.js')
+  script(src = '/js/libs/jquery.currency.js')
+  script(src = '/js/agentindex.js')
+
+    
+
+
+
+
+
+
+
+

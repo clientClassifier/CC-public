@@ -1,0 +1,105 @@
+//- .container
+.navbar.navbar-fixed-top.navbar-inverse
+  .navbar-inner
+    .container
+      a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.brand#CC(href='/') Client Classifer: 
+        small#smaller
+          i "Agents Best Tool"
+      ul.nav
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown') Help
+            b.caret
+          ul.dropdown-menu
+            li
+              a(href='/faq') FAQ
+            li
+              a(href='/contactus') Contact Us
+            li
+              a(href='/privacypolicy') Privacy policy
+            li
+              a(href='/termsandconditions') Terms of service
+        li
+          a#click_me(href='/experimentalAnalysis') Experiment
+      .btn-group.pull-right
+          button.btn#buttonLogin(href='#', data-toggle='modal', data-target='#logInModal') Log In
+          button.btn.btn-success(href='#', data-toggle='modal', data-target='#registerModal') Register
+
+  
+#logInModal.modal.hide.fade 
+  .modal-header
+    a.close(href='#', data-dismiss='modal') ×
+
+    h3 Log in
+  .modal-body
+      form.form-horizontal#userLogin(action='/login', method='post')
+        fieldset
+          .control-group
+            label.control-label(for='Email') Email
+            .controls
+              input(type='text', name='email', placeholder = 'Email')
+          .control-group
+            label.control-label(for='password') password
+            .controls
+              input(type='password', name='password' ,placeholder = 'Password')
+              br
+              a(href='/forgotpassword') I forgot my password
+          .form-actions
+            button.btn.btn-success(type='submit') log In
+  //- .modal-footer  
+  //-   button.btn.btn-success.pull-right#login_submit(type='submit') Log in
+
+
+
+#registerModal.modal.hide.fade 
+  .modal-header
+    a.close(href='#', data-dismiss='modal') ×
+
+    h3 Register and start classifing
+  .modal-body
+      form.form-horizontal#registerAgent(action='/register', method='post')
+        fieldset
+          .control-group
+            label.control-label(for='firstName') First name    
+            .controls.controls-row
+                input.onlyCharacters(type='text', name='firstName', placeholder='First Name')
+          .control-group
+            label.control-label(for='lastName') Last name
+            .controls
+              input.onlyCharacters(type='text', name='lastName', placeholder = 'Last name')
+          .control-group
+            label.control-label(for='email') Email
+            .controls
+              input#email(type='text', name='email', placeholder = 'Email')
+          .control-group
+            label.control-label(for='confirmEmail') Confirm Email
+            .controls
+              input#confirmEmail(type='text', name='confirmEmail', placeholder = 'Confirm Email')
+          .control-group
+            label.control-label(for='password') Password
+            .controls
+              input#password(type='password', name='password' ,placeholder = 'Password')
+          .control-group
+            label.control-label(for='cellPhone') Cell Phone
+            .controls
+              input#cellPhone.isPhone(type='text',  name='cellPhone', placeholder = 'xxx - xxx - xxxx')
+          .control-group
+            label.control-label(for='companyName') Broker Company
+            .controls
+              input#companyName.onlyCharactersWithSpace(type='text',  name='companyName', placeholder = 'Company name')           
+          .control-group
+            label.control-label(for='companyPhone') Company Phone
+            .controls
+              input#companyPhone.isPhone(type='text',  name='companyPhone', placeholder = 'xxx - xxx - xxxx')
+          .control-group
+            label.control-label(for='TOS') 
+              a(href='/termsandconditions', target ='_blank') Agree to Terms of Service
+            .controls
+              input#TOS(type='checkbox', name='TOS')
+          .form-actions
+            button.btn.btn-success(type='submit') Register
+  //- .modal-footer  
+  //-   button.btn.btn-success.pull-right#register_submit(type='submit') Register

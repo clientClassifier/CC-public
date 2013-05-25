@@ -1,0 +1,44 @@
+
+block scripts
+  script(src='/javascripts/jQuery.js', type='text/javascript')
+  script(src='/javascripts/bootstrap.min.js',type='text/javascript')
+  script
+    $(document).ready(function () {
+      $('#NCB').text('YES');
+      $('#WTD').text('Call Gilmer Pozo');
+      $('#PP').bind('change',function(){
+        $('#LA').trigger('change');
+      });
+      $('#LA').bind('change',function(){
+        var LP = $('#LP').val();
+        var PP = $('#PP').val();
+        var LA = (LP*PP)/100;
+        $('#LA').text(LA);
+        $('#DP').trigger('change');
+      });
+      $('#LP').bind('change',function(){
+        var LP = $('#LP').val();
+        var EP = 100 - LP;
+        $('#EP').prop('value', EP);
+        $('#LA').trigger('change');
+        });
+      $('#EP').bind('change',function(){
+        var EP = $('#EP').val();
+        var LP = 100 - EP;
+        $('#LP').prop('value', LP);
+        $('#LA').trigger('change');
+        });
+      $('#DP').bind('change',function(){
+        var EP = $('#EP').val();
+        var PP = $('#PP').val();
+        var DP = (EP*PP)/100;
+        $('#DP').text(DP);
+        });
+      $('#PP').prop('value', 1000);    
+      $('#LP').prop('value', 80).trigger('change');
+      $('#EP').prop('value', 20).trigger('change');
+      $('#IR').prop('value', 5);
+
+
+
+    })

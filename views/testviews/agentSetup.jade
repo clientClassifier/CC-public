@@ -1,0 +1,34 @@
+extends layout
+
+block contents
+  .container
+    .row
+      .span9.offset2
+        h2 Enter your information
+        form.form-horizontal.well#newClientForm(action='/agent//addClient', method='post')
+            fieldset
+              .control-group
+                label.control-label(for='ClientName') Client Name
+                .controls
+                  input#ClientName(type='text', name='clientName', placeholder = 'First Middle Last')
+              .control-group
+                label.control-label(for='CellPhone') Cell phone
+                .controls
+                  input#CellPhone(type='text',  name='cellPhone', placeholder = 'xxx - xxx - xxxx')
+              .control-group
+                label.control-label(for='HomePhone') Home phone
+                .controls
+                  input#HomePhone(type='text', name='homePhone', placeholder = 'xxx - xxx - xxxx')
+              .control-group
+                label.control-label(for='Email') Email
+                .controls
+                  input#Email(type='text', name='email', placeholder = 'Email')
+              .form-actions
+                button.btn.btn-primary(type='submit') Enter calculator
+
+
+
+append footer
+  script(src='/js/libs/jquery.validate.min.js')
+  script(src ='/js/agentindex.js')
+  script(src = '/js/libs/jquery.maskInput.min.js')

@@ -1,0 +1,145 @@
+
+
+
+mixin clientCommission(client,i)
+  .span3
+    - if(client.loanOfficer.exists == true && client.agentUnseenCommunication != 0 && typeof(client.agentUnseenCommunication) != 'undefined')
+        span.badge.badge-warning.informChange #{client.agentUnseenCommunication}
+
+
+    .div.well
+      - if(client.calculator.grade == 'A+')
+          a.btn.btn-success.btn-block(href='/agent/#{agentId}/calculator/#{client._id}') #{client.firstName} #{client.lastName}
+      - else if (client.calculator.grade == 'A')
+          a.btn.btn-success.btn-block(href='/agent/#{agentId}/calculator/#{client._id}') #{client.firstName} #{client.lastName}
+      - else if (client.calculator.grade == 'B')
+          a.btn.btn-warning.btn-block(href='/agent/#{agentId}/calculator/#{client._id}') #{client.firstName} #{client.lastName}
+      - else if (client.calculator.grade == 'C')
+          a.btn.btn-danger.btn-block(href='/agent/#{agentId}/calculator/#{client._id}') #{client.firstName} #{client.lastName}
+      - else if (client.calculator.grade == 'D')
+          a.btn.btn-danger.btn-block(href='/agent/#{agentId}/calculator/#{client._id}') #{client.firstName} #{client.lastName}
+      - else 
+          a.btn.btn-danger.btn-block(href='/agent/#{agentId}/calculator/#{client._id}') #{client.firstName} #{client.lastName}
+      table.table.table-condensed.tableclass
+        thead
+          tr
+            td 2.5%
+            td 3.0%
+            td Existed
+          tr 
+            td.isMoney.commission #{client.commission.twoFive}
+            td.isMoney.commission #{client.commission.threeEven}
+            td.center #{client.timeAgo}
+          
+
+
+
+
+
+
+
+
+
+extends ../layout
+
+
+
+block contents
+  .container
+    .row
+      .span3
+        include ../Blocks/sidebar
+      .span9
+        .row
+          .span
+            img#homeshift(src='/img/HOMEICON3.jpg', width='50', height='50' )
+          .span7
+            h2 Welcome #{agent.firstName} #{agent.middleName} #{agent.lastName}
+        .row
+          .span9
+            .alert.alert-info.alert-block
+              strong Have a new client? 
+              button.btn.btn-success(href='#', data-toggle='modal', data-target='#newClientFormModal') Create Client
+                //- form.form-inline#newClientForm(action='/agent/#{agentId}/addClient', method='post')
+                //-   fieldset
+                //-     .controls.controls-row
+                //-       .control-group
+                //-         .controls
+                //-           input.span2#fName(type='text', name='firstName', placeholder = 'First name')
+                //-           input.span1(type='text', name='middleName', placeholder = 'Middle')  
+                //-           input.span2#lName(type='text', name='lastName', placeholder = 'Last name')
+                //-           button.btn.btn-primary.span2#createNewClient(type='submit') Create
+                //- #errorBox
+                //- #errorBox2
+                //- #fName
+            - if(typeof(inputErrors) != 'undefined')
+              each err in inputErrors
+                each val,key in err
+                  - if(key == 'msg')
+                    .alert.alert-error.alert-block
+                      a.close(data-dismiss='alert', href='#') ×
+                      h4.alert-heading Error!
+                      p #{val}
+
+        .row
+          each client, i  in clients
+            if(client.calculator.grade == 'A+')
+              mixin clientCommission(client,i)
+          each client, i  in clients
+            if(client.calculator.grade == 'A')
+              mixin clientCommission(client,i)
+          each client, i  in clients
+            if(client.calculator.grade == 'B')
+              mixin clientCommission(client,i)
+          each client, i  in clients
+            if(client.calculator.grade == 'C')
+              mixin clientCommission(client,i)
+          each client, i  in clients            
+            if(client.calculator.grade == 'D' || client.calculator.grade == '')
+              mixin clientCommission(client,i)
+
+  #newClientFormModal.modal.hide.fade 
+    .modal-header
+      a.close(href='#', data-dismiss='modal') ×
+      h3 Enter your new clients information
+    .modal-body
+        form.form-horizontal#newClientForm(action='/agent/#{agentId}/addClient', method='post')
+            fieldset
+              .control-group
+                label.control-label(for='firstName') First name
+                .controls
+                  input#firstName.onlyCharacters(type='text', name='firstName', placeholder = 'First name')
+              .control-group
+                label.control-label(for='middleName') Middle name
+                .controls
+                  input#middleName.onlyCharacters(type='text', name='middleName', placeholder = 'Middle name')
+              .control-group
+                label.control-label(for='lastName') Last name
+                .controls
+                  input#lastName.onlyCharacters(type='text', name='lastName', placeholder = 'Last name')
+              //- .control-group
+              //-   label.control-label(for='clientConfirm') Client permission            
+              //-   .controls     
+              //-     input(type="checkbox", name='clientConfirm')   
+              button.btn.btn-primary.span2#createNewClient(type='submit') Create
+
+    //-
+      .modal-footer  
+            button.btn.btn-primary.pull-right(data-dismiss='modal') close window
+
+
+append footer
+  script(src = '/js/libs/jquery.validate.min.js')
+  script(src = '/js/libs/jquery.maskInput.min.js')
+  script(src = '/js/libs/jquery.currency.js')
+  script(src = '/js/agentindex.js')
+
+    
+
+
+
+
+
+
+
+

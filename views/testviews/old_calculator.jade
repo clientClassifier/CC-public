@@ -1,0 +1,251 @@
+extends layout
+
+
+
+block contents
+  .container
+        .row
+          .span3
+            include Blocks/sidebar
+          .span9
+
+            //- form#commentForm.cmxform(method='get', action='')
+            p#PPISTRUE
+            h2 Client Assessment Form
+            table.table.table-bordered.table-condensed
+              thead
+                  tr
+                    th.mypill 1. Monthly Payments
+                    th
+                    th 
+                    th
+                  tr
+                    td Max House Price
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input#prependedInput.span2#PP.numeric(type='text')
+                        
+                    td.span2 Loan Amount
+                    td.span2
+                        //- span.uneditable-input#LA(type='text')
+                        //- input#uneditable-input#LA.span2(type='text')
+                        //- input#disabledInput#LA.span2(type='text', disabled='disabled')
+                        span.span2#LA
+              thead
+                  tr
+                    td Down Payment Percent
+                      //- a#DP(href='#', rel='tooltip', title='')  ($)
+                    td
+                      .input-append
+                        input.span2#EP(type='text')
+                        span.add-on %
+                    td 
+                      ul.unstyled
+                        li Loan Percent
+                        li Down Payment
+                    td
+                      ul.unstyled
+                        li.span.span2#LP
+                        li.span.span2#DP 
+                  tr
+                    td Desired Interest Rate
+                    td 
+                      .input-append
+                        input.span2#IR(type='text')
+                        span.add-on %
+                    td Monthly Payments
+                    td
+                      span.span2#MP
+                  tr
+                    th.mypill 2. Debt and Rental Income
+                    th
+                    th
+                    th
+                  tr
+                    td.span3 Total Monthly Minimum Credit Payments
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#MCP.numeric(type='text')
+                    td(colspan='2')
+                      .alert.alert-info
+                          h4 Only debt on credit report
+                    
+              thead
+                  tr
+                    td Rental Income
+                      p *for second home buyers
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#RI.numeric(type='text')
+                    td(colspan='2') 
+                      .alert.alert-info
+                        h4 First home morgage payment
+
+                    
+                  tr
+                    th.mypill 3. Monthly Gross Income
+                    th
+                    th
+                    th
+                  tr
+                    td Borrower 1
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#BR1.numeric(type='text')
+                    td(colspan='2') 
+                      button.btn.btn-info(href='#', data-toggle='modal', data-target='#CMIModal') Calculate your Monthly Income
+                    
+                      
+              thead
+                  tr
+                    td Borrower 2
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#BR2.numeric(type='text')
+                    td Total Income for A+
+                    // td You need
+                    td 
+                      span.span2#PIDTI
+                      
+                  tr
+                    td Borrower 3
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#BR3.numeric(type='text')
+                    td 
+                      p#DP
+                    td
+                      span.span2
+                  tr
+                    th.mypill 4. Results
+                    th
+                    th
+                    th
+                  tr
+                    td Need Coborrower
+                    td
+                      span.span2#NCB
+                    td Remaining Income Needed
+                    td
+                      span.span2#IN
+              thead
+                  tr
+                    td Front Ratio
+                    td
+                      span.span2#DTIFront
+                    td Back Ratio
+                    td 
+                      span.span2#DTIBack
+                  tr
+                    td Status
+                    td 
+                      span.span20#STATUS 
+                    td Client Grade
+                    td
+                      span#ClientGrade
+            div#A3
+            div#A1
+            div#A2
+            div#A4
+            div#A5
+            div#A6
+
+
+
+
+
+            #UserInfoModal.modal.hide.fade 
+              .modal-header
+                a.close(href='#', data-dismiss='modal') ×
+                h3 Enter Client Information
+              .modal-body
+                form.form-horizontal
+                    fieldset
+                        .control-group
+                          label.control-label(for='inputWarning') First Name
+                          .controls
+                            input#inputWarning(type='text')
+                            span.help-inline 
+                        .control-group
+                          label.control-label(for='inputError') Middle Name
+                          .controls
+                            input#inputError(type='text')
+                            span.help-inline 
+                        .control-group
+                          label.control-label(for='inputSuccess') Last Name
+                          .controls
+                            input#inputSuccess(type='text')
+                            span.help-inline 
+                        button.btn.btn-primary.pull-right(type='submit') Schedule Appointment
+              .modal-footer
+    
+            #CallGilmerModal.modal.hide.fade 
+              .modal-header
+                a.close(href='#', data-dismiss='modal') ×
+                h3 Call to make it happen
+              .modal-body
+                .row
+                  .span
+                    .row
+                      .span6
+                        img.myimageshift(src='/img/gilmer2.png')
+                      .span6
+                        p I am Gilmer Pozo, call so we can move the client forward
+                        p.phonenum (818)-720-4008
+              .modal-footer              
+
+
+
+
+            #CMIModal.modal.hide.fade 
+              .modal-header
+                a.close(href='#', data-dismiss='modal') ×
+                h3 Lets find your monthly income
+              .modal-body
+                form.form-horizontal
+                    fieldset
+                        .control-group
+                          label.control-label Hourly pay
+                          .controls
+                            .input-prepend
+                              span.add-on $
+                              input#HourPay.numeric(type='text')
+                              span#HourPaytext 
+                        //- p.centeror or    
+                        .control-group
+                          label.control-label Bi-weekly pay
+                          .controls
+                            .input-prepend
+                              span.add-on $
+                              input#BWP.numeric(type='text')
+                              span#BWPtext
+                        //- p.centeror or     
+                        .control-group
+                          label.control-label Yearly Income
+                          .controls
+                            .input-prepend
+                              span.add-on $
+                              input#YP.numeric(type='text')
+                              span#YPtext 
+                        //- button.btn.btn-primary.pull-right() Enter Income
+              .modal-footer
+                button.btn.btn-primary#INC1(data-dismiss='modal') Income 1
+                button.btn.btn-primary#INC2(data-dismiss='modal') Income 2
+                button.btn.btn-primary#INC3(data-dismiss='modal') Income 3
+
+
+append footer
+  //- script(src='/javascripts/jQuery.js', type='text/javascript')
+  //- script(src='/javascripts/bootstrap.min.js', type='text/javascript')
+  script(src='/socket.io/socket.io.js', type='text/javascript')
+  //- script(src='/javascripts/jquery.validate.submit.min.js', type='text/javascript') 
+  script(src='/js/libs/jquery.currency.js', type='text/javascript')
+  script(src='/js/libs/ioscripts.js', type='text/javascript')
+
+

@@ -1,0 +1,16 @@
+extends layout
+
+
+
+block contents
+  .container
+    .row
+      .span4
+        h2 Register
+        h4 #{title}
+        form.well.form(action='/register', method='post')
+          input.span3(type='text', name='email', placeholder = 'Email')
+          input.span3(type='text', name='confirmemail', placeholder = 'Confirm Email')
+          input.span3(type='password', name='password' ,placeholder = 'Password')
+          .span1 
+          button.btn(type='submit') Register

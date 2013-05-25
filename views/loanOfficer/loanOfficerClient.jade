@@ -1,0 +1,891 @@
+mixin deletedClient
+  .row
+    .span9
+      .alert.alert-danger.alert-block
+        h4 Request client permission to continue transaction.
+        //- h5 No changes will be saved untill new real estate agent is found
+        p Changes will not be saved untill a new agent is found.
+
+mixin reqNewLO
+  .row
+    .span9
+      .alert.alert-danger.alert-block
+        h4 Request for a new loan officer has been placed. 
+        //- h5 No changes will be saved untill new real estate agent is found
+        p Please wait while this problem is resolved. 
+
+
+mixin showRequestTypeMessage(disputeType)
+  if(disputeType.requestNewLO ==  true)
+    mixin reqNewLO
+  if(disputeType.requestDeleteClient == true)
+    mixin deletedClient
+
+
+mixin agentExistsTable(agent)
+  table.table.table-condensed.tableclass.well
+    thread
+      th Name
+      th Cell
+      //- th Company phone 
+      th Company
+      th Email
+      //- th Fax
+    tbody
+      td #{agent.firstName} #{agent.lastName}
+      td #{agent.cellPhone}
+      //- td #{officer.companyPhone}
+      td #{agent.brokerCompany}
+      td 
+        a#agentEmail(href='mailto:#{agent.email}?subject=Clientclassifer: ') #{agent.email}
+      //- td ArealEmail@hotmail.com
+      //- td #{officer.companyFax}
+
+mixin agentNOExistTable(officer)
+  table.table.table-condensed.tableclass.well
+    thread
+      th Name
+      th Company phone 
+      th Company
+      th Fax
+    tbody
+      td Unassigned
+      td #{agent.companyPhone}
+      td #{agent.brokerCompany}
+      td #{agent.companyFax}
+
+
+
+        
+
+extends ../layout
+
+
+block contents
+  input.userType(type='hidden', name='userType', value='#{userType}')
+  .container
+    .row
+      .span3
+        include ../Blocks/sidebar_loanOfficers
+      .span9
+        h2#nameClient #{currentClient.firstName} #{currentClient.middleName} #{currentClient.lastName} 
+        ul#infoTab.nav.nav-tabs
+          li.active
+            a(href='#status', data-toggle='tab') Status
+          li
+            a(href='#clientInfo', data-toggle='tab') Info 
+          li
+            a(href='#calculator', data-toggle='tab') Calculator
+          li
+            a(href='#communication', data-toggle='tab') Communication 
+              - if(typeof(currentClient.loanOfficerUnseenCommunication) != 'undefined' && currentClient.loanOfficerUnseenCommunication != 0)  
+                  span.badge.badge-warning#communicationNotification #{currentClient.loanOfficerUnseenCommunication}
+                  input.commAlertExists(type='hidden', name='commAlertExists', value='true')
+              - else
+                  input.commAlertExists(type='hidden', name='commAlertExists', value='false')                         
+              
+
+
+          li
+            a(href='#instructions', data-toggle='tab') Instructions
+          li
+            a(href='#actions', data-toggle='tab') Actions  
+
+        .tab-content
+          div(id = 'status').tab-pane.active
+            if(typeof(calcData) != 'undefined')
+              != "<script type='text/javascript'>"
+                  != "var initPP = " + calcData.housePrice+ ";"
+                  != "var initLP = " + calcData.loanPercent+ ";"
+                  != "var initLA = " + calcData.loanAmount+ ";"
+                  != "var initDP = " + calcData.downPayment+ ";"
+                  != "var initMP = " + calcData.monthlyPayment+ ";"
+                  != "var initEP = " + calcData.downPaymentPercent+ ";"
+                  != "var initRI = " + calcData.rentalIncome+ ";"
+                  != "var initMCP = " + calcData.monthlyDebtPayments+ ";"
+                  != "var initBR1 = " + calcData.borrower1+ ";"
+                  != "var initBR2 = " + calcData.borrower2+ ";"
+                  != "var initBR3 = " + calcData.borrower3+ ";"
+                  != "var initIR = " + calcData.desiredInterestRate+ ";"
+                  != "var initNCB = '" + calcData.needCoborrower+ "';"
+                  != "var initinc47 = " + calcData.inc47+ ";"
+                  != "var initfrontDTI = " + calcData.frontDTI+ ";"
+                  != "var initbackDTI = " + calcData.backDTI+ ";"
+                  != "var initIN = " + calcData.incomeNeeded+ ";"
+                  != "var initgrade = '" + calcData.grade + "';"
+                  != "var initloanPaperGrade = '" + calcData.loanPaperGrade + "';"
+
+
+  
+              != "var inittaxes = " + currentClient.documentation.taxes + " ;"
+              != "var initW2 = " + currentClient.documentation.W2 + " ;"
+              != "var initpayStub = " + currentClient.documentation.payStub + " ;"
+              != "var initbankStatements = " + currentClient.documentation.bankStatements + " ;"
+              != "var initprequal = " + currentClient.documentation.prequal + " ;"
+
+              != "var initdriversLicense = " + currentClient.documentation.driversLicense + " ;"
+              != "var initsocialSecurityCard = " + currentClient.documentation.socialSecurityCard + " ;"
+              != "var initapplication = " + currentClient.documentation.application + " ;"
+              != "var initsubmissionForm = " + currentClient.documentation.submissionForm + " ;"
+              != "var initsigned = " + currentClient.documentation.signed + " ;"             
+              != "var initpreApproved = " + currentClient.documentation.preApproved + " ;"
+
+
+              != "var initprequalAgent = " + currentClient.documentation.prequalAgent + " ;"
+              != "var initshowHouses = " + currentClient.documentation.showHouses + " ;"
+              != "var initmadeOffer = " + currentClient.documentation.madeOffer + " ;"
+              != "var initofferStatus = " + currentClient.documentation.offerStatus + " ;"
+              != "var initappraisal = " + currentClient.documentation.appraisal + " ;"
+              != "var initEMD = " + currentClient.documentation.EMD + " ;"
+              != "var initescrow = " + currentClient.documentation.escrow + " ;"
+              //- != "var initclosed = " + currentClient.documentation.closed + " ;" 
+
+
+
+              != "var initprelim = " + currentClient.documentation.prelim + " ;"
+              != "var initescrowInstruction = " + currentClient.documentation.escrowInstruction + " ;"
+              != "var initreDisclosures = " + currentClient.documentation.reDisclosures + " ;"
+              != "var inithomeInspections = " + currentClient.documentation.homeInspections + " ;"
+              != "var initNTP = " + currentClient.documentation.NTP + " ;"
+              != "var initFWT = " + currentClient.documentation.FWT + " ;"
+
+
+
+
+              != "var initcredit = " + currentClient.documentation.credit + " ;"
+              != "var initupdatedDocs = " + currentClient.documentation.updatedDocs + " ;"
+              != "var initconditions = " + currentClient.documentation.conditions + " ;"
+              != "var initsubOfLoan = " + currentClient.documentation.subOfLoan + " ;"
+              != "var initapproved = " + currentClient.documentation.approved + " ;"
+              != "var initpriorToDocs = " + currentClient.documentation.priorToDocs + " ;"
+              != "var initPTFconditions = " + currentClient.documentation.PTFconditions + " ;"
+              != "var initfunding = " + currentClient.documentation.funding + " ;"
+              != "</script>"
+
+            .row
+              .span9 
+                //- - var dispute = 'false';
+                - var disputeExists = (currentClient.dispute._id != null ? "true": "false")
+                if(disputeExists == 'true')
+                  mixin showRequestTypeMessage(currentClient.dispute.type)
+                  // - var dispute = (typeof(currentClient.dispute.type) != 'requestDeleteClient' ? "requestNewLO" : "requestDeleteClient")
+                  //- if(typeof(currentClient.dispute.type) != 'undefined ' && currentClient.dispute.type == 'requestDeleteClient')
+                  //- mixin deletedClient
+                  //- if(dispute == 'requestNewLO')
+                  //-   mixin deletedClient
+                  //- if(dispute == 'requestNewLO')
+                  //-   mixin reqNewLO
+                .row
+                  .span
+                    img#homeshift(src='/img/document check off 2.jpg', width='50', height='50' )
+                  .span7
+                    h3 Prequal
+                br
+                table.table.table-condensed.tableclass.well
+                  thread
+                    th 2 years W2's
+                    th 2 years Taxes
+                    th Last 2 pay stubs
+                    th Last 2 bank statements 
+                    th Prequal        
+                  tbody
+                    td 
+                      input#W2(type='checkbox', value='W2') 
+                    td 
+                      input#taxes(type='checkbox', value='taxes')
+                    td 
+                      input#payStub(type='checkbox', value='payStub')
+                    td 
+                      input#bankStatements(type='checkbox', value='bankStatements')
+                    td 
+                      input#prequal(type='checkbox', value='prequal')
+
+
+            .row
+              .span9
+                .row
+                  .span
+                    img#homeshift(src='/img/Real estate process.jpg', width='50', height='50' )
+                  .span7
+                    h3 Agent progress
+                table.table.table-condensed.tableclass.well
+                  thread
+                    th Prequal
+                    th Show house
+                    th Made offer
+                    th Accepted offer       
+                    //- th Appriasal
+                    th EMD
+                    th Open Escrow
+                  tbody
+                    td 
+                      input#prequalAgent(type='checkbox', disabled="disabled", value='prequalAgent') 
+                    td 
+                      input#showHouses(type='checkbox', disabled="disabled", value='showHouses')
+                    td 
+                      input#madeOffer(type='checkbox', disabled="disabled", value='madeOffer')
+                    td 
+                      input#offerStatus(type='checkbox', disabled="disabled", value='offerStatus')
+                    //- td 
+                    //-   input#appraisal(type='checkbox', disabled="disabled", value='appraisal')
+                    td 
+                      input#EMD(type='checkbox', disabled="disabled", value='')
+                    td 
+                      input#escrow(type='checkbox', disabled="disabled", value='escrow')
+                      //- input#closed(type='checkbox', disabled="disabled", value='closed')
+                  thread
+                    th Prelim
+                    th Escrow Instructions
+                    th RE disclosures
+                    th Home inspections
+                    th NTP
+                    th FWT
+                  tbody
+                  td 
+                      input#prelim(type='checkbox',  disabled="disabled",value='prelim')
+                    td 
+                      input#escrowInstruction(type='checkbox', disabled="disabled", value='escrowInstruction') 
+                    td 
+                      input#reDisclosures(type='checkbox', disabled="disabled", value='reDisclosures')
+                    td 
+                      input#homeInspections(type='checkbox',disabled="disabled", value='homeInspections')
+                    td 
+                      input#NTP(type='checkbox', disabled="disabled", value='NTP')
+                    td 
+                      input#FWT(type='checkbox', disabled="disabled", value='FWT')                   
+            .row
+              .span9
+                .row
+                  .span
+                    img#homeshift(src='/img/application icon 2.jpg', width='50', height='50' )
+                  .span7
+                    h3 Loan progress
+                table.table.table-condensed.tableclass.well
+                  thread
+                    th Credit
+                    th License
+                    th SS#
+                    th 1003
+                    th Signed
+                    th Submission form         
+                    th Pre-approved
+                  tbody
+                    td 
+                      input#credit(type='checkbox', value='credit')
+                    td 
+                      input#driversLicense(type='checkbox', value='driversLicense') 
+                    td 
+                      input#socialSecurityCard(type='checkbox', value='socialSecurityCard')
+                    td 
+                      input#application(type='checkbox', value='application')
+                    td 
+                      input#signed(type='checkbox', value='signed')
+                    td 
+                      input#submissionForm(type='checkbox', value='submissionForm')
+                    td 
+                      input#preApproved(type='checkbox', value='preApproved')   
+                  thread
+                    th Updated Docs
+                    th Loan submitted
+                    th Appraisal
+                    th Approval
+                    th Prior to Docs
+                    th Loan Docs
+                    //- th PTF conditions
+                    th Funding
+                  tbody
+                    td 
+                      input#updatedDocs(type='checkbox', value='updatedDocs') 
+                    td 
+                      input#subOfLoan(type='checkbox', value='subOfLoan')
+                    td 
+                      input#appraisal(type='checkbox', value='appraisal')
+                    td 
+                      input#approved(type='checkbox', value='approved')
+                    td 
+                      input#priorToDocs(type='checkbox', value='priorToDocs')
+                    td 
+                      input#conditions(type='checkbox', value='conditions')
+                    //- td 
+                    //-   input#PTFconditions(type='checkbox', value='PTFconditions')
+                    td 
+                      input#funding(type='checkbox', value='funding')
+
+
+          div(id = 'clientInfo').tab-pane
+
+            .row
+              .span9
+                if(disputeExists == 'true')
+                  mixin showRequestTypeMessage(currentClient.dispute.type)
+                .row
+                  .span
+                    img#homeshift(src= '/img/client icon6.jpg', width='50', height='50')
+                  .span7
+                      h3 Client
+                table.table.table-condensed.tableclass.well
+                  thead
+                    tr
+                      th Grade
+                      th Home
+                      th Cell
+                      //- th Email
+                      th Coborrower
+                      th 2.5
+                      th 3.5
+                  tbody
+                    tr
+                      td #{currentClient.calculator.grade}
+                      td #{currentClient.homePhone}
+                      td #{currentClient.cellPhone}
+                      td #{currentClient.calculator.needCoborrower}
+                      td.isMoney.commission #{currentClient.commission.twoFive}
+                      td.isMoney.commission #{currentClient.commission.twoFive}
+                  thead
+                    tr
+                      th House Price
+                      th Down Payment
+                      th Down Payment
+                      th Loan
+                      th Interest
+                      th Monthly
+                  tbody
+                    tr
+                      td.isMoney #{currentClient.calculator.housePrice}
+                      td #{currentClient.calculator.downPaymentPercent}
+                      td.isMoney #{currentClient.calculator.downPayment}
+                      td.isMoney #{currentClient.calculator.loanAmount}
+                      td #{currentClient.calculator.desiredInterestRate}
+                      td.isMoney #{currentClient.calculator.monthlyPayment}
+                  thead
+                    tr
+                      th Monthly Debt
+                      th Rental Income
+                      th Income 1
+                      th Income 2
+                      th Income 3
+                      th Total Income
+                  tbody
+                    tr
+                      td.isMoney #{currentClient.calculator.monthlyDebtPayments}
+                      td.isMoney #{currentClient.calculator.rentalIncome}
+                      td.isMoney #{currentClient.calculator.borrower1}
+                      td.isMoney #{currentClient.calculator.borrower2}
+                      td.isMoney #{currentClient.calculator.borrower3}
+                      td.isMoney #{currentClient.calculator.totalIncome}
+                  thead
+                    tr
+                      th Target Income
+                      th 
+                      th Front 
+                      th Back
+                      th 
+                      th 
+                  tbody
+                    tr
+                      td.isMoney #{currentClient.calculator.inc47}
+                      td
+                      td.reduceDecimal #{currentClient.calculator.frontDTI}
+                      td.reduceDecimal #{currentClient.calculator.backDTI}
+                      td 
+                      td 
+
+            .row
+              .span9
+                .row
+                  .span
+                    img#homeshift(src= '/img/agentFace.jpg', width='50', height='50')
+                  .span7
+                    h3 Officer
+                table.table.table-condensed.tableclass.well
+                  thead
+                    th Name
+                    th Cell                        
+                    th Company
+                    th Email
+                    //- th Fax
+                  tbody
+                    td #{currentClient.loanOfficer.firstName} #{currentClient.loanOfficer.lastName}
+                    
+                    td #{currentClient.loanOfficer.cellPhone}
+                    td #{currentClient.loanOfficer.brokerCompany}
+                    td 
+                      a(href='mailto:#{currentClient.loanOfficer.email}?subject=Clientclassifer: ') #{currentClient.loanOfficer.email}
+
+
+
+            .row
+              .span9
+                .row
+                  .span
+                    img#homeshift(src= '/img/agentFace.jpg', width='50', height='50')
+                  .span7
+                    h3 Agent
+                if(currentClient.loanOfficer.exists == true)
+                  mixin agentExistsTable(currentClient.agent)
+                else
+                  mixin agentNOExistTable(currentClient.agent)
+
+
+          div(id = 'calculator').tab-pane
+            if(disputeExists == 'true')
+              mixin showRequestTypeMessage(currentClient.dispute.type)
+            table.table.table-bordered.table-condensed
+              thead
+                  tr
+                    th.mypill 1. Monthly Payments
+                    th
+                    th 
+                    th
+                  tr
+                    td Max House Price
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#PP.numeric(type='text', value= '#{currentClient.calculator.housePrice}')
+                         
+                    td.span2 Loan Amount
+                    td.span2
+                        //- span.uneditable-input#LA(type='text')
+                        //- input#uneditable-input#LA.span2(type='text')
+                        //- input#disabledInput#LA.span2(type='text', disabled='disabled')
+                        span.span2#LA.isMoney2 #{currentClient.calculator.loanAmount}
+              thead
+                  tr
+                    td Down Payment Percent
+                      //- a#DP(href='#', rel='tooltip', title='')  ($)
+                    td
+                      .input-append
+                        input.span2#EP(type='text', value= '#{currentClient.calculator.downPaymentPercent}')
+                        span.add-on %
+                    td 
+                      ul.unstyled
+                        li Loan Percent 
+                        li Down Payment
+                    td
+                      ul.unstyled
+                        li#LP #{currentClient.calculator.loanPercent}%
+                        li#DP.isMoney2 #{currentClient.calculator.downPayment}
+                  tr
+                    td Desired Interest Rate
+                    td 
+                      .input-append
+                        input.span2#IR(type='text', value= '#{currentClient.calculator.desiredInterestRate}')
+                        span.add-on %
+                    td Monthly Payments
+                    td
+                      .alert.alert-success
+                        h4
+                          span.span2#MP.isMoney2 #{currentClient.calculator.monthlyPayment}
+                  tr
+                    th.mypill 2. Debt and Rental Income
+                    th
+                    th
+                    th
+                  tr
+                    td.span3 Total Monthly Minimum Credit Payments
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#MCP.numeric(type='text', value= '#{currentClient.calculator.monthlyDebtPayments}')
+                    td(colspan='2')
+                      .alert.alert-info
+                          h4 Debt on credit report
+                     
+              thead
+                  tr
+                    td Rental Income
+                      p *for second home buyers
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#RI.numeric(type='text', value= '#{currentClient.calculator.rentalIncome}')
+                    td(colspan='2') 
+                      .alert.alert-info
+                        h4 Current morgage
+
+                     
+                  tr
+                    th.mypill 3. Monthly Gross Income
+                    th
+                    th
+                    th
+                  tr
+                    td Borrower 1
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#BR1.numeric(type='text', value= '#{currentClient.calculator.borrower1}')
+                    td(colspan='2') 
+                      button.btn.btn-info(href='#', data-toggle='modal', data-target='#CMIModal') Calculate clients monthly income
+                     
+                       
+              thead
+                  tr
+                    td Borrower 2
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#BR2.numeric(type='text', value= '#{currentClient.calculator.borrower2}')
+                    td Target Income
+                    td 
+                      span.span2#PIDTI.isMoney #{currentClient.calculator.inc47}
+                       
+                  tr
+                    td Borrower 3
+                    td
+                      .input-prepend
+                        span.add-on $
+                        input.span2#BR3.numeric(type='text', value= '#{currentClient.calculator.borrower3}')
+                    td 
+                      p Remaining Income
+                    td
+                      span.span2#IN.isMoney #{currentClient.calculator.incomeNeeded}
+                  tr
+                    th.mypill 4. Results
+                    th
+                    th
+                    th
+                  tr
+                    td Need Coborrower
+                    td
+                      span.span2#NCB #{currentClient.calculator.needCoborrower}
+                    td Ratio
+                    td
+                      span#DTIFront.reduceDecimal  #{currentClient.calculator.frontDTI}
+                      span  /  
+                      span#DTIBack.reduceDecimal #{currentClient.calculator.backDTI}
+              thead
+                  //- tr
+                  //-   td 
+                  //-   td
+                  //-   td Type
+                  //-   td 
+                  //-     span.span#loanPaperGrade
+                  //-     //- span.span2#DTIBack
+                  tr
+                    td Status
+                    td
+                      span.span20#STATUS 
+                    td Client Grade
+                    td
+                        span#ClientGrade #{currentClient.calculator.grade}
+            div#A3
+            div#A1
+            div#A2
+            div#A4
+            div#A5
+            div#A6
+ 
+
+
+
+          div(id = 'communication').tab-pane
+            if(disputeExists == 'true')
+              mixin showRequestTypeMessage(currentClient.dispute.type)
+            .row
+              .span
+                img#homeshift(src= '/img/waiting.jpg', width='50', height='50')
+              .span7
+                  h2 Communicate with Agent
+            .row
+              .span8
+                input#loanOfficerName(type='hidden', value='#{currentClient.loanOfficer.firstName} #{currentClient.loanOfficer.lastName}')
+                textarea.span8#theMessage(name='messageLoanOfficer', cols='25', rows='5')
+                br
+                button.btn.pull-right#messageButton(href='#') Send
+                br
+                br
+                div#allMessages
+                  each message in currentClient.communication
+                    if(message.userType == 'realEstateAgent') 
+                      .alert.alert-info.alert-block
+                        .row
+                          .span2
+                            p 
+                              strong #{message.userName} : 
+                              | #{message.formatDate} 
+                          .span5
+                            p #{message.text} 
+                       
+                    if(message.userType == 'loanOfficer') 
+                      .alert.alert-success.alert-block
+                        .row
+                          .span2
+                            p 
+                              strong #{message.userName} : 
+                              | #{message.formatDate} 
+                          .span5
+                            p #{message.text} 
+  
+
+          div(id = 'instructions').tab-pane
+            
+            != "<script type='text/javascript'>"
+            != "var initinstructions = [];"
+            != "var initinstructCompleted = [];"
+              each instruction in currentClient.instructions
+                != "initinstructions.push('" + instruction.text + "');"
+                != "initinstructCompleted.push('" + instruction.completed + "');"
+            != "</script>"
+
+            if(disputeExists == 'true')
+              mixin showRequestTypeMessage(currentClient.dispute.type)
+
+            .row
+              .span
+                img#homeshift(src='/img/loan officer ideas.jpg', width='50', height='50' )
+              .span7
+                h3 
+                  | Loan officer instructions
+                  button.btn.btn-primary.pull-right(href='#',id="btnSendEmailAgent")
+                    i.icon-envelope.icon-white 
+                    |   Email Agent
+            .row
+              .span9
+                - for (var i = 1; i < 11; ++i) 
+                    .alert.alert-info.alert-block
+                      .row
+                        .span
+                          h4 Step #{i}:
+                        .span
+                          label.checkbox.inline
+                            if(i == 1 || typeof(currentClient.instructions[i-1]) != 'undefined' || (i-1) == currentClient.instructions.length)                      
+                              if(currentClient.instructions[i-1] == '')
+                                input#inlineCheckbox.pull-right.instructionCompleted(type='checkbox', value='#{i}', class = 'icId#{i}', disabled="disabled")
+                                | Completed
+                              else
+                                input#inlineCheckbox.pull-right.instructionCompleted(type='checkbox', value='#{i}', class = 'icId#{i}')
+                                | Completed
+
+                            else
+                              input#inlineCheckbox.pull-right.instructionCompleted(type='checkbox', value='#{i}', class = 'icId#{i}', disabled="disabled")
+                              | Completed                                
+                      .row
+                        .span8
+                          if(i == 1 || typeof(currentClient.instructions[i-1]) != 'undefined' || (i-1) == currentClient.instructions.length)
+                            textarea.span8.message(name='messageLoanOfficer', cols='15', rows='4', class= 'taId#{i}')
+                            span.messageStatus(class= 'mId#{i}') Instruction: Not Set
+                            button.btn.pull-right.instructionButton(href='#', class= 'ibId#{i}') Enter                           
+                          else
+                            textarea.span8.message(name='messageLoanOfficer', cols='15', rows='4', disabled="disabled", class= 'taId#{i}')
+                            span.messageStatus(class= 'mId#{i}') Instruction: Not Set
+                            button.btn.pull-right.instructionButton(href='#', disabled="disabled" , class= 'ibId#{i}' ) Enter                    
+               
+
+
+          div(id = 'actions').tab-pane
+            if(disputeExists == 'true')
+              mixin showRequestTypeMessage(currentClient.dispute.type)
+            .row
+              .span9
+                .row
+                  .span
+                    img#homeshift(src='/img/loan officer ideas.jpg', width='50', height='50' )
+                  .span2
+                    h3 Actions
+                  .span1.offset5
+                br
+                table.table.table-condensed.tableclass.well
+                  thead
+                    th Available actions
+                    th 
+                  tbody
+                    - var requestNewLO = (currentClient.dispute.type.requestNewLO == true ? "true": "false")
+                    if(requestNewLO == 'false')                  
+                      td.span4 1. Remove client from my list. (normal delete)
+                      td 
+                        button.btn.btn-primary(href='#', data-typeDelete='requestDeleteClient', data-toggle='modal', data-target='#ConfirmDelete') Delete client from my list (delete)
+                    else
+                      td.span4 1. Remove client from my list. (requestNewLO)
+                      td 
+                        button.btn.btn-primary(href='#', data-typedelete='requestNewLO', data-toggle='modal', data-target='#ConfirmDelete') Delete client from my list (requestNewLO)                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  #ConfirmDelete.modal.hide.fade 
+    .modal-header
+      a.close(href='#', data-dismiss='modal') ×
+      h3 Confirm Delete
+    .modal-body
+      .span1
+      .span6
+        h4 Why are you deleting this client?
+        form.form-horizontal(action='/loanOfficer/#{lenderId}/client/#{currentClientId}', method='post')
+          input(type='hidden', name='_method', value='DELETE')
+          input(type='hidden', name='clientId', value='#{currentClientId}')
+          input(type='hidden', name='lenderId', value='#{lenderId}')
+          input.typeDelete(type='hidden', name='type', value= '')
+          fieldset
+            label.radio
+              input(type='radio', name='optionsRadios', value='clientDispute')
+              | Client dispute
+            label.radio
+              input(type='radio', name='optionsRadios', value='realEstateAgentDispute')
+              | Real Estate Agent dispute
+            label.radio
+              input(type='radio', name='optionsRadios', value='otherDispute')
+              | Other
+            label
+              input(type='text', name='otherReason', placeholder = 'Cause')
+            h4 Comment
+            textarea.span5(rows='5', name='comment', placeholder = 'Comment')
+          br
+          button.btn.btn-success(type='submit') Confirm Delete
+
+
+
+
+  #UserInfoModal.modal.hide.fade 
+    .modal-header
+      a.close(href='#', data-dismiss='modal') ×
+      h3 Enter Client Information
+    .modal-body
+      form.form-horizontal
+          fieldset
+              .control-group
+                label.control-label(for='inputWarning') First Name
+                .controls
+                  input#inputWarning(type='text')
+                  span.help-inline 
+              .control-group
+                label.control-label(for='inputError') Middle Name
+                .controls
+                  input#inputError(type='text')
+                  span.help-inline 
+              .control-group
+                label.control-label(for='inputSuccess') Last Name
+                .controls
+                  input#inputSuccess(type='text')
+                  span.help-inline 
+              button.btn.btn-primary.pull-right(type='submit') Schedule Appointment
+    .modal-footer
+
+  #CallGilmerModal.modal.hide.fade 
+    .modal-header
+      a.close(href='#', data-dismiss='modal') ×
+      h3 Call Xavier Izquieta, President/Broker
+    .modal-body
+      .row
+        .span2
+          img(src='/img/150by210.jpg')
+          p.nmls NMLS# 328920
+        .span4
+          p I am the president of the First Valley Morgage Co., Inc. We can help your client get their new home.
+          p Schedule an appointment so you can move this client
+          p.contactMe Contact Me
+            ul.unstyled
+              li Tel: (818)-989-0543
+              li Cell: (818)-652-5841
+    .modal-footer              
+      p.pull-left 14663 Titus Street, Suite 201 Van Nuys, Ca 91402
+      p.pull-left
+        a(href='http://www.firstvalleyonline.com') www.firstvalleyonline.com
+        | &bull; 
+        a(href='mailto:xizquieta@firstvalleyonline.com') xizquieta@firstvalleyonline.com
+     //- p.pull-left 
+        //- strong Tel: (818)-989-0543 Cell: (818)-652-5841 EFax: (818)-286-9542
+
+
+
+  #CMIModal.modal.hide.fade 
+    .modal-header
+      a.close(href='#', data-dismiss='modal') ×
+      h3 Lets compute your monthly income
+    .modal-body
+      p
+        span.badge.badge-success 1
+        |  Enter income
+      form.form-horizontal
+          fieldset
+              .control-group
+                label.control-label Hourly pay
+                .controls
+                  .input-prepend
+                    span.add-on $
+                    input#HourPay.numeric.span2(type='text')
+                  span.help-inline#HourPaytext 
+              //- p.centeror or    
+              .control-group
+                label.control-label Bi-weekly pay
+                .controls
+                  .input-prepend
+                    span.add-on $
+                    input#BWP.numeric.span2(type='text')
+                  span.help-inline#BWPtext
+              //- p.centeror or     
+              .control-group
+                label.control-label Yearly Income
+                .controls
+                  .input-prepend
+                    span.add-on $
+                    input#YP.numeric.span2(type='text')
+                  span.help-inline#YPtext 
+              //- button.btn.btn-primary.pull-right() Enter Income
+    .modal-footer
+      .row
+        .span2
+          p
+            span.badge.badge-success 2
+            |  Select income
+        .span
+          button.btn.btn-primary#INC1(data-dismiss='modal') Income 1
+          button.btn.btn-primary#INC2(data-dismiss='modal') Income 2
+          button.btn.btn-primary#INC3(data-dismiss='modal') Income 3
+
+
+append footer
+  //- script(src='/javascripts/jQuery.js', type='text/javascript')
+  //- script(src='/javascripts/bootstrap.min.js', type='text/javascript')
+  script(src='/socket.io/socket.io.js', type='text/javascript');
+  //- script(src='/javascripts/jquery.validate.submit.min.js', type='text/javascript') 
+  script(src='/js/libs/jquery.currency.js', type='text/javascript');
+  script(src='/js/libs/jquery.dateFormat-1.0.js');
+  script(src='/js/loanOfficerClient.js', type='text/javascript');
+
+  script
+    $(document).ready(function () {
+      $('#ConfirmDelete').on('show', function (event) {
+      var typeDelete = $(this).data('modal').options.typedelete;
+      console.log('typeDelete intial =  ' + typeDelete );
+      $('.typeDelete').prop('value', typeDelete);
+      console.log('typeDelete Form =  ' + $('.typeDelete').val() );
+      });      
+    });
+

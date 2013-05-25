@@ -1,0 +1,289 @@
+extends layout
+ 
+
+
+
+block contents
+  //- .circle(ng-repeat='shape in shapes', ng-style='{ \'backgroundColor\':shape.color, \'left\':shape.x+\'px\', \'top\':shape.y+\'px\' }')
+  .container
+    .row#whiteRound
+      .span8
+        .row
+          .span8
+              - if(typeof(congrats)!= 'undefined' && congrats.length>0)
+                br
+                .alert.alert-success.alert-block
+                      a.close(data-dismiss='alert', href='#') ×
+                      h4.alert-heading Successfull!
+                      p #{congrats}
+        .row#extedRight
+          .span8 
+            br
+            table.table.table-condensed.tableclass.well#inputTable
+              thead
+                tbody
+                  th
+                  th Income
+                  th Debt 
+                  th Interest
+                  th Down Payment
+                tbody 
+                  td.span1 
+                    //- button.btn.btn-warning#newIncome(href='#', data-toggle='modal', data-target='#informationModal') Info
+                  td 
+                    button.btn.btn-success#income(type='text', name='income') $0
+                  td
+                    button.btn.btn-success#debt.numeric(type='text', name='debt') $0
+                  td
+                    Select#interest.span2
+                      option 5%
+                      option 4%
+                      option 3%
+                  td 
+                    Select#DPMethod.span2
+                      option 3.5% : FHA
+                      option 5% : Conventional
+                      option 10% : Conventional
+                      option 20% : Conventional
+
+        .row
+          .span8
+            #container(style='min-width: 300px; height: 400px; margin: 0 auto;')
+
+        .row
+          .span8
+              table.table.table-bordered
+                tbody
+                  tr
+                    td.offset1
+                      span.span1
+                        p
+                      span.span2.hasPop(href='#',data-trigger='manual', data-placement='bottom', rel="popover", title="Grade A", data-content="Traditional banks and morgage companies do these loan easily.")
+                        | Grade A 
+                        img(src='/img/colorElement_GREEN.jpg')
+                      span.span2.hasPop(href='#',data-trigger='manual', data-placement='bottom', rel="popover", title="Grade B", data-content="Few traditional banks will work this loan.")
+                        | Grade B
+                        img(src='/img/colorElement_YELLOW.jpg') 
+                      span.span2.hasPop(href='#',data-trigger='manual', data-placement='bottom', rel="popover", title="Grade C", data-content="Traditinal banks wont address this loan. An experienced morgange company is required.")
+                        | Grade C
+                        img(src='/img/colorElement_RED.jpg')
+                      span.span2.hasPop(href='#',data-trigger='manual', data-placement='bottom', rel="popover", title="Grade D", data-content="Not attainable with present income and debt. You may get a coborrower to acheive this house.")
+                        | Grade D
+                        img(src='/img/colorElement_BLACK.jpg')
+
+
+        .row
+          .span8
+            button.btn.btn-primary.btn-large.offset3(href='#', data-toggle='modal', data-target='#helpBuyHome') FREE Consultation 
+            br
+            br
+            // Please help me buy a home!
+            - if(typeof(errorsRequestConsultation) != 'undefined')
+              each err in errorsRequestConsultation
+                each val,key in err
+                  - if(key == 'msg')
+                    .alert.alert-error.alert-block
+                      a.close(data-dismiss='alert', href='#') ×
+                      h4.alert-heading Error!
+                      p #{val}
+
+
+      .span4
+        br
+        button.btn.btn-warning.btn-block#newIncome(href='#', data-toggle='modal', data-target='#informationModal') Extra Details
+        h5 How does this work?
+        //- br
+        ol
+          li.active
+            p Enter your monthly income and Minimum Debt Payments
+          li.active
+            p Choose Interest rate and down payment percent
+          li.active
+            p See what price range you qualify for
+          li.active
+            p get a Free Consultation
+
+        button.btn.btn-block.btn-primary Who are we?
+        h5 A Network of Real Estate Agents 
+        hr
+        h5 A Network of Loan Officers
+        hr
+        //- h5 Watch Video
+        //- hr
+
+
+
+      #helpBuyHome.modal.hide.fade
+        .modal-header
+          a.close(href='#', data-dismiss='modal') ×
+          h3 Request Free Consultation
+        .modal-body
+          p We will send you an email with a comprehensize analysis with your ability to purhcase a house and get a loan.
+          form.form-horizontal#requestForm(action ='/requestconsultation', method='post')
+              input#formIncome(type='hidden', name='formIncome', value='')
+              input#formDebt(type='hidden', name='formDebt', value='')
+              input#formInterest(type='hidden', name='formInterest', value='')
+              input#formGraphData(type='hidden', name='formGraphData', value='')
+              fieldset
+                .control-group
+                  lable.control-label(for='hasAgent') Have an agent?
+                  .controls
+                    Select(name = 'hasAgent')
+                      option No
+                      option Yes
+                .control-group
+                  label.control-label(for='wantsUs') Need a loan?
+                  .controls
+                    Select(name = 'wantsUs')
+                      option Yes
+                      option No
+                .control-group
+                  label.control-label(for='firstName') First name
+                  .controls
+                    input.span3(type='text', name='firstName', placeholder='First Name')  
+                .control-group
+                  label.control-label(for='lastName') Last name
+                  .controls
+                    input.span3(type='text', name='lastName', placeholder='Last Name')  
+                .control-group
+                  label.control-label(for='cellPhone') Cell Phone
+                  .controls
+                    input.span3.isPhone(type='text', name='cellPhone', placeholder='Cellphone')
+
+
+
+                .control-group
+                  label.control-label(for='consumerEmail') Email
+                  .controls
+                    input.span3(type='text', name='consumerEmail', placeholder='Your Email')    
+                //- button.btn.btn-primary.span3.offset3(type='submit') I want to buy a house!
+
+        .modal-footer#btnsConsultations
+          button.btn.btn-primary#requestConsultation Request consultation
+
+      #CMIModal.modal.hide.fade 
+        .modal-header
+          a.close(href='#', data-dismiss='modal') ×
+          h3 Lets compute your monthly income
+        .modal-body
+          p
+            //- span.badge.badge-success 1
+            //- |  Enter income
+          form.form-horizontal
+              fieldset
+                  .control-group
+                    label.control-label Hourly pay
+                    .controls
+                      .input-prepend
+                        span.add-on $
+                        input.numeric.span2#HourPay(type='text')
+                      span.help-inline#HourPaytext 
+                  //- p.centeror or    
+                  .control-group
+                    label.control-label Bi-weekly pay
+                    .controls
+                      .input-prepend
+                        span.add-on $
+                        input.numeric.span2#BWP(type='text')
+                      span.help-inline#BWPtext
+                  //- p.centeror or     
+                  .control-group
+                    label.control-label Yearly Income
+                    .controls
+                      .input-prepend
+                        span.add-on $
+                        input.numeric.span2#YP(type='text')
+                      span.help-inline#YPtext 
+                  //- button.btn.btn-primary.pull-right() Enter Income
+        .modal-footer
+          .row
+            .span2
+              button.btn.btn-primary#enterIncome(data-dismiss='modal') Reset Income
+            .span2
+              p
+                //- span.badge.badge-success 2
+                //- |  Select income
+            .span.offset1
+              button.btn.btn-primary#addToIncome(data-dismiss='modal') Add To Income
+
+
+
+
+
+      #sumDebts.modal.hide.fade 
+        .modal-header
+          a.close(href='#', data-dismiss='modal') ×
+          h3 Enter The minimum required payment
+        .modal-body
+          h5 Do not enter balance. Enter minimum payment only.
+          form.form-horizontal
+              fieldset
+                .control-group
+                  label.control-label(for='firstName') Car Payements
+                  .controls.controls-row
+                    input.span1.numeric#car1(type='text', placeholder='Car 1', value='0')
+                    input.span1.numeric#car2(type='text', placeholder='Car 2', value='0')
+                    input.span1.numeric#car3(type='text', placeholder='Car 3', value='0')
+                .control-group
+                  label.control-label(for='firstName') Credit Cards
+                  .controls.controls-row
+                    input.span1.numeric#card1(type='text', placeholder='Card 1', value='0')
+                    input.span1.numeric#card2(type='text', placeholder='Card 2', value='0')
+                    input.span1.numeric#card3(type='text', placeholder='Card 3', value='0')
+                    //- input.span1(type='text', placeholder='Card 4')
+                  .controls.controls-row
+                    input.span1.numeric#card4(type='text', placeholder='Card 4', value='0')
+                    input.span1.numeric#card5(type='text', placeholder='Card 5', value='0')
+                    input.span1.numeric#card6(type='text', placeholder='Card 6', value='0')
+                    //- input.span1(type='text', placeholder='Card 8')
+                .control-group
+                  label.control-label(for='firstName') Child support
+                  .controls.controls-row
+                    input.span3.numeric#child(type='text', placeholder='Child 1', value='0')
+                //- button.btn.btn-primary.span2.offset4(type='submit') Enter
+          .modal-footer  
+            button.btn.btn-primary#enterDebt(data-dismiss='modal') Enter Debt
+
+
+
+      #informationModal.modal.hide.fade 
+          .modal-header
+            a.close(href='#', data-dismiss='modal') ×
+            h3 Information 
+          .modal-body
+            h5 Inputs
+            ul
+              li Income: Enter monthly income before taxes.
+              li Debt: Enter minimum payments for all open credit accounts. 
+              li InterestRate: 
+                ul 
+                  li Good credit, enter 3%
+                  li Ok Credit, enter 4%
+                  li unknown or poor credit, enter 5%.
+            //- h5 Grading
+            //- ul
+            //-   li A:  Traditional banks and morgage companies do theses loan easily.
+            //-   li B: Few traditional banks will work this loan.
+            //-   li C: Traditinal banks wont address these loan. An experienced morgange company is required.
+            //-   li D: Not attainable with present income and debt. You may get a coborrower to acheive this house. 
+          .modal-footer  
+              button.btn.btn-primary(data-dismiss='modal') Exit
+
+
+
+append footer 
+  script(src='/socket.io/socket.io.js', type='application/javascript');
+  script(type='text/javascript', src='js/libs/highcharts.js')
+  // script(src = '/js/libs/themes/dark-blue.js')
+  script(src = '/js/libs/jquery.currency.js')
+  script(src = '/js/libs/jquery.validate.min.js')
+  script(src = '/js/libs/jquery.maskInput.min.js')
+  // script(src = '/js/script.js')
+  // script(type='text/javascript', src='js/libs/modules/exporting.js')
+
+
+  script(type='text/javascript', src='js/directClientAnalyzier.js')
+  
+
+
+

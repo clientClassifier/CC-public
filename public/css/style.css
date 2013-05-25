@@ -1,0 +1,281 @@
+
+
+/* ===== Primary Styles ========================================================
+   Author:
+   ========================================================================== */
+
+
+
+
+
+
+
+body {
+  padding: 80px;
+  margin-left: 10px;
+  /*background-image: url('../img/textured_paper.png');*/
+  /*padding-right: 50px;*/
+
+  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+  
+  /*background-color: black;*/
+  /*background-repeat:no-repeat;*/
+ /* display: compact;
+  background-color: transparent;*/
+}
+
+.p.pull-center2 {
+  margin-left: 280px;
+
+}
+
+.clientNav{
+  top: 42px; 
+}
+
+#imageBack{
+  background-image: url('../img/green-field-blue-sky-and-bench.jpg');
+}
+
+#imgBanner {
+  background-image: url('../Client Classifier WEB BANNER.jpg');
+}
+
+.heroTEXT { /* client classfier name in nav bar */ 
+  font-size:24px;
+  color: white;
+}
+
+#whiteRound{
+  background-color: white;
+  -webkit-border-radius: 15px;
+  -khtml-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+/*#extedRight{
+  margin-right: -20px;
+}
+*/
+
+
+#myCarousel{
+  height:338px;
+  width:600px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#ClientGrade{
+  position:relative;
+  left:8px;
+  top:6px;
+  font-size: 46px;
+  font-weight: bolder;
+  /*background-color: yellow; */
+}
+
+th {
+  color: #FFFFFF;
+  background-color: #0088cc;
+}
+
+Angell
+.test {
+  background-color: yellow;
+}
+
+.mycenter{
+  /*position:relative;*/
+  /*margin: 0 auto;*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /*left:255px;*/
+}
+img .myimageshift{
+  position:relative;
+  margin-left: 10px;
+}
+
+.phonenum {
+  /*color: green;*/
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+
+.nmls{
+  font-size: 12px;
+}
+
+
+.contactMe{
+  color:#3a87ad;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+label.valid {
+  width: 24px;
+  height: 24px;
+  background: url(/img/Kudos_for_Webdesigntuts/Done_small.png) center center no-repeat;
+  display: inline-block;
+  text-indent: -9999px;
+}
+label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+
+#CC { /* client classfier name in nav bar */ 
+  font-size:24px;
+  color: white;
+}
+
+
+#imshift {
+  position:relative;
+  top:20px; /* was 33*/
+}
+
+
+#h1shift {
+  position:relative;
+  left:100px; 
+}
+
+#blockShiftRight {
+  position:relative;
+  left:50px;
+}
+
+#arrowShiftRight {
+  position:relative;
+  left:10px;
+}
+
+
+.calculatorComponent {
+  width: 180px;
+  height: 70px;
+}
+
+#innerText{
+    width: 50%;
+    margin: 0px auto;
+}
+
+
+
+#featureList {
+  font-size: 16px;
+  font-weight: bolder; 
+}
+
+#indexGrid{
+  background-color:gray;
+  color: white;
+}
+
+
+.commission {
+  font-size: 16px;
+  font-weight: bolder;
+  color:green;
+}
+
+
+#videoShift {
+  position:relative;
+  left:220px;
+}
+
+#videoShift2 { /* this one is better than videoShift */
+  position:relative;
+  left:40px;
+}
+
+#smaller{
+  font-size:14px;
+}
+
+
+
+#homeshift {
+  position:relative;
+  top:10px;
+}
+
+
+
+.table .center { text-align: center;}
+
+
+.informChange {
+  float:right;
+  position:relative;
+  bottom: -2px;
+  left:-2px;
+
+}
+
+
+.warningSign {
+  position:relative;
+  top: 20px;
+  right: 20px;
+}
+
+
+
+#chart1 .jqplot-point-label {
+  border: 1.5px solid #aaaaaa;
+  padding: 1px 3px;
+  background-color: #eeccdd;
+}
+
+
+
+/*.layout-slider  .goVertical {
+  position:relative;
+  -moz-transform:rotate(90deg);
+  -webkit-transform:rotate(90deg);
+  -o-transform:rotate(90deg);
+  -ms-transform:rotate(90deg);
+  filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5);
+}*/
+
+/*
+.wrap {
+    position:relative;
+    margin:0 auto;
+    width:980px;
+  }
+
+  #footer {
+    width:100%;
+    float:left;
+  }
+
+
+
+#footer {
+    position:fixed;
+    bottom:0;
+    z-index:999999;
+  }*/
+
+.fixCheckbox{
+  position: relative;
+  top: -3px;
+}
+
+.ocultar{
+  display: none;
+}

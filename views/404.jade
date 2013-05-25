@@ -1,0 +1,23 @@
+extends layout
+
+block topbar
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container
+        a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.brand(href='/login') ClientClassifer
+        .nav-collapse
+          ul.nav
+            li
+              a(href='#') Calculator
+        ul.nav.pull-right
+          li.divider-vertical    
+            li
+              a(href='/logout') login 
+          li.divider-vertical
+
+block contents
+  p sorry no content yet. :( 

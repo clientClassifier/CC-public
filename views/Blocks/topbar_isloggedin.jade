@@ -1,0 +1,54 @@
+.navbar.navbar-fixed-top.navbar-inverse
+  .navbar-inner
+    .container
+      a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.brand#CC(href='/') Client Classifer: 
+        small#smaller
+          i "Agents Best Tool"
+      ul.nav
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown') Help
+            b.caret
+          ul.dropdown-menu
+            li
+              a(href='/faq') FAQ
+            li
+              a(href='/contactus') Contact Us
+            li
+              a(href='/privacypolicy') Privacy policy
+            li
+              a(href='/termsandconditions') Terms of service
+        li
+          a(href='/experimentalAnalysis') Experiment
+
+      ul.nav.pull-right
+        li.divider-vertical
+        li.dropdown
+          a#userNameFL.dropdown-toggle(href='#', data-toggle='dropdown') #{userFirstName} #{userLastName}
+            b.caret
+          ul.dropdown-menu
+            if(userType == 'realEstateAgent')
+              li
+                a(href='/agent/#{agentId}') Home
+              li
+                a(href='/agent/#{agentId}/setting') Settings  
+              li.divider
+              li
+                a(href='/logout') Logout
+            else
+              li
+                a(href='/loanofficer/#{lenderId}') Home
+              li
+                a(href='/loanofficer/#{lenderId}/setting') Settings 
+              li.divider
+              li
+                a(href='/logout') Logout
+
+
+
+
+
+        li.divider-vertical

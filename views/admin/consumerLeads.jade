@@ -1,0 +1,318 @@
+extends ../layout
+
+
+block contents
+  .container
+    .row    
+      .span3
+        include ../Blocks/sidebar_admin
+
+      .span9
+        .row
+          .span
+            img(src= '/img/client icon3.jpg', width='60', height='60')
+          .span7
+            h2 Consumer Leads
+        
+
+        - if(typeof(consumers) == 'undefined')
+            .alert.alert-block.alert-error
+              p no more consumers
+
+            ul.pager
+              li.previous
+                a(href='/admin/#{adminId}/consumerleads/#{previous}') ← Older
+
+              li.next
+               a(href='#') Newer →
+
+
+        - else
+            table.table.table-bordered.table-condensed
+              thead
+                  tr
+                    th Client Name
+                    th Cell Phone
+                    th Email
+                    //- th Client Cell
+                    th Income
+                    th Debt
+                    th Interest
+                    th House
+                    th Agent
+                    th LO
+                    th Actions
+                    
+                tbody
+                  each consumer in consumers
+                    tr
+                      td #{consumer.firstName} #{consumer.lastName}
+                      td #{consumer.cellPhone}
+                      td 
+                        button.btn.btn-info.btn-mini#emailPop.hasPop(href='#',data-trigger='manual', data-placement='bottom', rel="popover", title="Client Email", data-content="#{consumer.email}") email
+                        //- a(href='mailto:#{consumer.email}?subject=Clientclassifer: #{consumer.firstName} #{consumer.lastName} - We can help') link
+                      td.isMoney #{consumer.income}
+                      td.isMoney #{consumer.debt}
+                      td #{consumer.interestRate}%
+                      td.isMoney #{consumer.graphData[2].housePrice}
+                      td #{consumer.questions.hasAgent}
+                      td #{consumer.questions.wantsUs}
+                      td 
+                        .btn-group
+                            button.btn.btn-primary.dropdown-toggle(data-toggle='dropdown')
+                              | Actions
+                              span.caret
+                            ul.dropdown-menu
+                              li
+                                a(href='#', data-graphdata='#{consumer.stringGraphdata}', data-toggle='modal', data-target='#customerDetails') Details
+                              li
+                                a(href='#',   data-toggle='modal', data-clientid='#{consumer._id}', data-target='#markeHandled') Mark Handled
+
+
+
+            ul.pager
+              - if(previous==0)
+                  li.previous.disabled
+                    a(href='#') ← Older
+              - else
+                  li.previous
+                    a(href='/admin/#{adminId}/consumerleads/#{previous}') ← Older
+
+              li.next
+               a(href='/admin/#{adminId}/consumerleads/#{next}') Newer →
+
+  #customerDetails.modal.hide.fade 
+      .modal-header
+        a.close(href='#', data-dismiss='modal') ×
+        h3 Information 
+      .modal-body
+        #container(style='min-width: 500px; height: 400px; margin: 0 auto;')
+      .modal-footer  
+          button.btn.btn-primary(data-dismiss='modal') Exit
+
+  #markeHandled.modal.hide.fade 
+      .modal-header
+        a.close(href='#', data-dismiss='modal') ×
+
+        h4 Are you sure you want to mark this client as handled?
+      .modal-body
+        p To confirm enter "confirm" wihtout quotes
+        form.form-horizontal#handleFormID(action='/admin/#{adminId}/consumerleads', method='post')
+            fieldset
+              input(type='hidden', name='_method', value='PUT')
+              input.clientId(type='hidden', name='clientId', value='')
+              input#securityConfirm(type='text', name='confirm', placeholder = 'confirm')
+      .modal-footer
+            button.btn.btn-primary.pull-left#handleButtonFinal(type='submit') Mark handled
+
+
+
+
+
+
+
+
+
+append footer
+  script(type='text/javascript', src='/js/libs/highcharts.js')
+  script(src = '/js/libs/jquery.currency.js')
+  script
+    $(document).ready(function () {
+      $('#markeHandled').on('show', function (event) {
+      var client = $(this).data('modal').options.clientid;
+      // var user = $(this).data('modal').options.userid;
+      // alert('the client Id selected = '+ client);
+      console.log('client selected1 =  ' +client );
+      $('.clientId').prop('value', client);
+      console.log('client selected2 =  ' +$('.clientId').val() );
+      // $('.clientId').text('clientId = ' + client)
+      });
+      $('#handleButtonFinal').click(function() {
+        console.log($('#securityConfirm').val())
+        if($('#securityConfirm').val() == 'confirm'){
+          $('#handleFormID').submit();
+        }
+      });
+      $('.hasPop').click(function() {
+        $(this).popover('toggle')
+      })
+   
+      $('.isMoney').currency({
+        decimals: 0
+        });
+      chart = new Highcharts.Chart({
+      chart: {
+      renderTo: 'container',
+      type: 'column'
+      },
+      credits: {
+      enabled: false
+      },
+      title: {
+      text: 'What You Can Purchase'
+      },
+      xAxis: {
+      categories: [
+      '0',
+      '0',
+      '0',
+      '0',
+      '0',
+      '0'
+      ],
+      labels: {
+      formatter: function() {
+      // var monthly =
+      // var formated = monthly.currency();
+      // console.log('monthly  = ' + monthly)
+      return '$' + addCommas(this.value)
+      }
+      },
+      title:{
+      text: 'Monthly Payment ($)'
+      }
+      },
+      yAxis: {
+      min: 0,
+      title: {
+      text: 'House Price ($)'
+      }
+      },
+      // legend: {
+      //     layout: 'vertical',
+      //     backgroundColor: '#FFFFFF',
+      //     align: 'left',
+      //     verticalAlign: 'top',
+      //     x: 100,
+      //     y: 70,
+      //     floating: true,
+      //     shadow: true
+      // },
+      tooltip: {
+      useHTML: true,
+      formatter: function() {
+      if(this.point.remainingIncome != parseInt(0) ){
+      return 'Your Grade = ' +  this.point.grade  +' <p> Better grade with additional $' +   addCommas(this.point.remainingIncome)   + ' in income</p>';
+      }
+      else{
+      return 'Your Grade = ' + this.point.grade
+      }
+      // return '('+
+      //     this.x +', '+ this.y + ', ' + this.point.color +   ' , ' +  this.point.remainingIncome + ')';
+      }
+      },
+      plotOptions: {
+      column: {
+      pointPadding: 0.2,
+      borderWidth: 0,
+      dataLabels: {
+      enabled: true,
+      // color: colors[0],
+      style: {
+      fontWeight: 'bold'
+      },
+      formatter: function() {
+      return '$' + addCommas(this.point.y)
+      }
+      }
+      }
+      },
+      series: [{
+      showInLegend : false,
+      name: 'Grade',
+      // data: [[4, 49.9],[12, 71.5], [16,106.4]]
+      data: [0, 0, 0, 0 ,0, 0]
+      // dataLabels :{
+      //     enabled: true,
+      //     rotation: 0,
+      //     color: '#FFFFFF',
+      //     align: 'center',
+      //     x: 0,
+      //     y: 90,
+      //     formatter: function() {
+      //         return this.point.grade;
+      //     }
+      // }
+      }]
+      });
+       $('#customerDetails').on('show', function (event) {
+        // console.log('the modal is shown!');
+        var stringraph = $(this).data('modal').options.graphdata;
+        // console.log('stringrpah = ' + stringraph);
+        // console.log(stringraph[0].housePrice);
+
+
+
+        // stringraph = null;
+        // console.log(stringraph);
+
+        // var graphData = JSON.parse(stringraph);
+        // console.log('Graph data = '  + graphData[0]);
+        chart.xAxis[0].setCategories([stringraph[0].monthlyPayment, stringraph[1].monthlyPayment, stringraph[2].monthlyPayment,stringraph[3].monthlyPayment,stringraph[4].monthlyPayment,stringraph[5].monthlyPayment ]);
+        for(var i = 0; i < 6; i++){
+           chart.series[0].data[i].update({
+                                   monthlyPayment: parseFloat(stringraph[i].monthlyPayment),
+                                   y: parseFloat(stringraph[i].housePrice),
+                                   color: stringraph[i].color,
+                                   remainingIncome : stringraph[i].remainingIncome,
+                                   grade: stringraph[i].grade
+                                 })
+        }//end of for loop
+        })//end of customerDetails
+      $('#customerDetails').on('hidden', function(){
+          //- console.log('deleted stuff from graph');
+
+          //- while(chart.series.length > 0)
+          //-   chart.series[0].remove(true);
+          // for(var i = 0; i < 6; i++){
+          //   chart.series[0].data[i].update({y:0,y:0,y:0,y:0,y:0,y:0});
+          // }
+        });
+
+
+      function addCommas(value){
+        value = String(value);
+        var num = value.match(/[0-9,]*/g)[0];
+        var decimalNum = value.match(/[.][0-9]*/) || "";
+        if(num) {
+        var wholeNum = num.match(/[0-9]/g).reverse().join("").match(/[0-9]{1,3}/g).join(",").match(/./g).reverse().join("");
+        //- console.log(wholeNum);
+        var resultNum = wholeNum + decimalNum;
+        return resultNum
+        // $(this).val(resultNum);
+        }
+        else{
+        // $(this).val(num);
+        return num;
+        }
+        }//end of addcommas
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      });//end of docuemnt ready
+
+
+  // script(src = '/js/libs/jquery.maskInput.min.js')
+  // script(src = '/js/script.js')
+
+
+
+
+
+
+
+
+
+

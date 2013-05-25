@@ -1,0 +1,27 @@
+extends ../layout
+
+block contents
+  p socket chat working
+
+
+  button.btn.btn-success.span2#CONNECTED(onclick=) Continue 
+
+append footer
+  script(src='/socket.io/socket.io.js', type='text/javascript');
+  script
+    $(document).ready(function () {
+      var dataCount = 0;
+      var socket = io.connect();
+      $('#CONNECTED').click(function(){
+        console.log('clicked button!!!');
+        socket.emit('connected',{
+          ssid: 'some SSID!'
+        });
+      });
+      socket.on('update the page', function(data){
+      	dataCount++;
+      	console.log('recieved data from server = ' + data);
+      })
+
+
+    })

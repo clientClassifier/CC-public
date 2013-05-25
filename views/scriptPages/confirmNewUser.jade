@@ -1,0 +1,21 @@
+extends ../layout
+
+
+block contents
+  .container
+    if(confirmation == true)
+      br
+      .hero-unit
+        h1 Registration Complete!
+        p Simply login and start classifing clients
+    else
+      br
+      .hero-unit
+        h1 Incorrect URL
+        p Please enter correct url
+
+
+append footer
+    script(src = '/js/libs/jquery.validate.min.js')
+    script(src = '/js/enter.js')
+    script(src = '/js/libs/jquery.maskInput.min.js')

@@ -1,0 +1,32 @@
+extends layout
+
+//-include Blocks/topbar_isloggedout
+
+//- include /Blocks/_topbar
+//-include partials/_topbar
+
+
+block contents
+  .container
+    .row
+      .span4
+        h2 Sign In
+        form.well(action='/login', method='post')
+          input.span3(type='text', name='email', placeholder = 'Email')
+          input.span3(type='password', name='password' ,placeholder = 'Password')
+          button.btn.btn(type='submit') Submit
+          - if(typeof(error) != 'undefined')
+            p error
+    .row
+      .span4
+        h2 TEMPORARY LENDER LOGING SO I CAN SHOW XAVIER
+        form.well(action='/lenderlogin', method='post')
+          input.span3(type='text', name='email', placeholder = 'Email')
+          input.span3(type='password', name='password' ,placeholder = 'Password')
+          button.btn.btn(type='submit') Submit
+          - if(typeof(error) != 'undefined')
+            p error
+
+
+
+

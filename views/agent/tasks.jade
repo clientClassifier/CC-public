@@ -1,0 +1,60 @@
+mixin renderTasks(task)
+	div(class='span8 alert alert-block #{task.state}')
+		-if(task.completed)
+			a(data-dismiss='alert',href='#').close x
+		.left.pull-left.span5
+			strong For  :
+			span  
+				a(href='/agent/504aff792f21b4a808000002/calculator/#{task.clientId}') #{task.clientName}
+			br
+			strong Task :
+			span  #{task.message}
+		.right.pull-right.span2
+			strong Due      :
+			span  #{task.dueDate2}
+			br
+			strong Completed :  
+			-//input(type='hidden', id='taskId', value='#{task._id}')
+			input(type='checkbox',checked=task.completed,id='#{task.clientId}',id2='#{task._id}').fixCheckbox
+			-if(task.completed)
+				br
+				strong Date Completed     :
+				span  #{task.dateCompleted}
+extends ../layout
+block contents
+	.container
+		.row
+			.span3
+				include ../Blocks/sidebar
+			.span9
+				.row
+					.span9
+						br
+						.alert
+							form.form-horizontal#searchForm(action="javascript:", method='post')
+								input(type='hidden', id='agentId', value='#{agentId}')
+								| Client Name : 
+								//- input#txtSearch(type='input')
+								input#txtSearch.onlyCharactersWithSpace(name='txtSearch')
+								| 
+								input#btnSearch(type='button', value='Search').btn.btn-primary
+								#taskMessage.pull-right #{'Found ('+(tasks.length-tasksCompleted)+' Incompleted, '+tasksCompleted+' Completed).'}
+					.span9#taskList
+						ul.nav.nav-tabs
+							li.active
+								a(href='#Active',data-toggle='tab') Active
+							li
+								a(href='#Completed',data-toggle='tab') Completed
+						.tab-content
+							div(id='Completed').tab-pane
+								-for( i in tasks)
+									-if(tasks[i].completed)
+										mixin renderTasks(tasks[i])
+							div(id='Active').tab-pane.active
+								-for( i in tasks)
+									-if(!tasks[i].completed)
+										mixin renderTasks(tasks[i])							
+append footer
+	script(src='/socket.io/socket.io.js', type='text/javascript');
+	script(src='/js/libs/jquery.currency.js', type='text/javascript');
+	script(src='/js/tasks.js');

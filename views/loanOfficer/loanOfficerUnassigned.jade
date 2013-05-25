@@ -1,0 +1,134 @@
+extends ../layout
+
+
+block contents
+  .container
+    .row
+      .span3
+        include ../Blocks/sidebar_loanOfficers
+      .span9
+        .row
+          .span
+            img(src= '/img/client icon3.jpg', width='60', height='60')
+          .span7
+            h2 Prospects
+        br
+        table.table.table-bordered.table-condensed
+          thead
+              tr
+                th Grade
+                th DTI
+                th.span1 Loan
+                th Client Name
+                //- th Client Cell
+                th Agent Name
+                th.span2 Agent Cell
+                //-th Owner
+                th Action
+            tbody
+              each agent, i  in unassigned
+                each client in agent.clients
+                  if(client.loanOfficer.exists == false)
+                    - var isChosen = (typeof(client.cellPhone) != 'undefined' ? "success" : ""); 
+                    //- p isChosen = '#{isChosen}',  cellPhone = #{client.cellPhone}
+                    tr(class = isChosen )
+                      td #{client.calculator.grade}
+                      td #{client.calculator.frontDTI} / #{client.calculator.backDTI}
+                      td.isMoney #{client.calculator.loanAmount}
+                      td #{client.firstName} #{client.middleName} #{client.lastName}
+                      td 
+                        a(href='mailto:#{client.agent.email}?subject=Clientclassifer: #{client.firstName} #{client.lastName} - We can help') #{agent.firstName} #{agent.lastName}
+                      td #{agent.cellPhone}
+                      td 
+                        //- if(#)
+                        button.btn.btn-info(href='#', data-clientid='#{client._id}', data-toggle='modal', data-target='#assignLoanOfficer') Assign
+
+  #assignLoanOfficer.modal.hide.fade 
+    .modal-header
+      a.close(href='#', data-dismiss='modal') ×
+
+      h3 Select Loan Officer to handle this client
+    .modal-body
+      span.badge.badge-info 1
+      |   Select Officer
+      form.form-horizontal#assignFormID(action='/loanofficer/#{agentId}/unassigned', method='post')
+          fieldset
+            input(type='hidden', name='_method', value='PUT')
+            input.clientId(type='hidden', name='clientId', value='')
+            select(name = 'loanOfficerId')
+              each Lo, i in allLO
+                option(value='#{Lo._id}') #{Lo.firstName} #{Lo.middleName} #{Lo.lastName}
+
+
+
+            //- each Lo, i in allLO
+              .control-group
+                label.control-label(for='firstName') #{Lo.firstName} #{Lo.middleName} #{Lo.lastName} 
+                .controls
+                  input(type='radio', name='optionsRadios', value='LO_#{Lo._id}')
+        //- button.btn.btn-primary(type='submit') Assign
+    .modal-footer
+      .row
+        .span
+          p.pull-left
+            span.badge.badge-info 2
+            | Press Assign ----->          
+        .span
+          button.btn.btn-primary.pull-right#assignButtonFinal(type='submit') Assign
+
+
+
+append footer  
+  script(src='/js/libs/jquery.currency.js', type='text/javascript');
+  script
+    $(document).ready(function () {
+      $('#assignLoanOfficer').on('show', function (event) {
+      var client = $(this).data('modal').options.clientid;
+      // var user = $(this).data('modal').options.userid;
+      // alert('the client Id selected = '+ client);
+      console.log('client selected1 =  ' +client );
+      $('.clientId').prop('value', client);
+      console.log('client selected2 =  ' +$('.clientId').val() );
+      // $('.clientId').text('clientId = ' + client)
+      });
+      $('#assignButtonFinal').click(function() {
+        $('#assignFormID').submit();
+        });
+      $('.isMoney').currency({
+         decimals: 0
+         });
+
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,310 @@
+extends ../layout
+
+
+block contents
+  .container
+    br
+    br
+    .row
+      .span12
+        ul.nav.nav-tabs
+          li.active
+            a(href='#faq', data-toggle='tab') FAQ
+          li
+            a(href='#description', data-toggle='tab') Calculator Tutorial 
+
+        .tab-content
+          div(id = 'faq').tab-pane.active
+
+            .row
+              .span12
+                .page-header
+                  h1 Frequently Asked Questions
+
+            .row
+              .span12
+                h3 Grading: What does the grade mean?
+                .offset1
+                  h5
+                    span#ClientGrade.gradeA  A 
+                    | = Client can easily get a loan. Must concentrate efforts on this client immediatly.
+                  h5
+                    span#ClientGrade.gradeB  B 
+                    | = Client requires assistance of experienced loan officer. Focus on these clients after meeting loan officer.
+                  h5
+                    span#ClientGrade.gradeC  C 
+                    | = Client loan requires structuring. This may take weeks to months depending on instruction from loan officer.
+                  h5
+                    span#ClientGrade.gradeD D 
+                    | = Client loan not possible. Alter parameters to obtain better grade.
+            .row
+              .span12
+                h3 How can I improve the grade?
+                p The grading is based on the financial strenght of your client for a specicic house amount. The major factors that can be changed are the house price, debt, and income.
+
+              .row
+              .span12
+                h3 My client REALY wants a house for $X but has a low grade, what can I do? 
+                p Unless they can obtain a coborrower to increase the total income, their ability to purchase the house  unrealistics. Advise client to purchase a lower priced house.
+
+              .row
+              .span12
+                h3 My client has alot of debt, what can I do? 
+                p A meeting with a loan officer can provide strategies to pay down debt. With a proper strategy from the loan officer, this can be solved.
+
+
+            .row
+              .span12
+                h3 What about FICO score?
+                p Client classifier is not using FICO scores directly. If your client has a good FICO score, you may reduce the interest rate.  
+ 
+
+            .row
+              .span12
+                h3 Is this loan Conventional or FHA?
+                p Your client may choose either program after meeting with the loan officer. 
+
+            .row
+              .span12
+                h3 What debt do I include?
+                p Add the minimum monthly payment shown on the credit report of your client.
+                ol
+                  li Car
+                  li Credit cards
+                  li Child support
+
+            .row
+              .span12
+                h3 My client has collections!
+                p A loan officer will provide a strategy to pay down those debts if needed.
+              
+
+            .row
+              .span12
+                h3 What is the Rental income field?
+                p If your client has a current morgage. They will have to rent it out. Enter the rental income they are charging.
+
+            .row
+              .span12
+                h3 How do I compute monthly income of my client?
+                p We provide a button where you can input thier hourly, bi-weekly, or yearly pay and compute their monthly income automatically. 
+
+            .row
+              .span12
+                h3 Can my client get a loan even if coborrower is required?
+                p The only time we suggest a coborrower is if the income is insufficiant for the desired purchase price. You either lower the house price or find a coborrower.
+
+            .row
+              .span12
+                h3 What does the monthly payment include?
+                p The monthly payment has all required impounds such as PITI and insurance included
+
+            .row
+              .span12
+                h3 What does target income mean?
+                p This is the income required to get a B grade. 
+
+            .row
+              .span12
+                h3 What is the remaining income?
+                p This is the remaining income to reach the target income amount
+
+            .row
+              .span12
+                h3 What is the Instructions tab?
+                p These are instructions that the loan officer will provide you todo. These are things you must accomplish so you can help the loan move forward.
+
+            .row
+              .span12
+                h3 What are the Days, Weeks, and Months in the side bar?
+                p Any client who is under the days field, are clients you should be concentrating on. Clients under the weeks segment have complications or will require some time with the loan officer to properly complete and do analysis. Any client under months, must follow a strategy. If they complete the required steps, their grade will be updated.
+
+
+
+          link(href='js/libs/bootstro/bootstro.css', rel='stylesheet')              
+          div(id = 'description').tab-pane
+
+
+            .row
+              .span12
+                .page-header
+                  h1 Monthly Payments 
+                    button.btn.btn-success.demoStart(type='submit') Show Demo
+
+            .row
+              .span12    
+                img.bootstro(src ='/img/calculatorStepOne.jpg',data-bootstro-step="0", data-bootstro-title="first popover",data-bootstro-content='Monthly Payments',data-bootstro-width='500px',data-bootstro-placement='bottom')
+
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="1", data-bootstro-title="secundo popover",data-bootstro-placement='bottom')
+                h3 1: House price
+                h5 Enter your clients desired purchase price. Depending on the resulting grade, this may be achievable.
+
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="2", data-bootstro-title="third popover",data-bootstro-placement='bottom')
+                h3 2: Down Payment Percentage
+                h5 Ask your client how much down payment they can afford. 3.5% assumes FHA program.
+
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="3", data-bootstro-title="fourth popover",data-bootstro-placement='bottom')
+                h3 3: Desired Interest Rate
+                h5 The defualt is 5% interest, if your client has good credit this can be reduced to improve grade. Remember you are not negotiation rates, rather you are using this value to estimate the desired monthly payments only.
+
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="4", data-bootstro-title="fifth popover",data-bootstro-placement='bottom')
+                h3 4: Loan Amount 
+                  span.label.label-success  Automatically computed
+                h5 Amount borrowed from the bank.
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="5", data-bootstro-title="sixth popover",data-bootstro-placement='bottom')
+                h3 5: Loan Percent 
+                  span.label.label-success  Automatically computed
+                h5 Amount borrowed from bank in percentage.
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="6", data-bootstro-title="seventh popover",data-bootstro-placement='bottom')
+                h3 6: Down Payment 
+                  span.label.label-success  Automatically computed
+                h5 The client down payment amount in dollar amount.
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="7", data-bootstro-title="eighth popover",data-bootstro-placement='bottom')
+                h3 7: Monthly Payment 
+                  span.label.label-success  Automatically computed
+                h5 Estimated monthly payments with included impounds.
+
+
+            .row
+              .span12
+                .page-header
+                  h1 Debt
+
+
+            .row
+              .span12    
+                img.bootstro(src = '/img/calculatorStepTwo.jpg',data-bootstro-step="8", data-bootstro-title="ninth popover",data-bootstro-placement='bottom',data-bootstro-width='500px')
+
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="9", data-bootstro-title="tenth popover")
+                h3 8: Total monthly minimum payments 
+                h5 Only add the minimum credit payments that show up on the credit report. Ask clients for car payment first. If they do not have any, their grade could be higher.
+
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="10", data-bootstro-title="eleventh popover")
+                h3 9: Rental Income
+                h5 For clients looking for a second home, this is the morgage payment of the first home. They will be required to rent out the first home unless they have a large income.
+
+            .row
+              .span12
+                .page-header
+                  h1 Income
+
+            .row
+              .span12    
+                img.bootstro(src = '/img/calculatorStepThree.jpg',data-bootstro-step="11", data-bootstro-title="twelfth popover",data-bootstro-placement='bottom',data-bootstro-width='500px')
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="12", data-bootstro-title="thirteenth popover")
+                h3 10: Borrower 1 Income
+                h5 Monthly gross income (before taxes) without deductions of main borrower. 
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="13", data-bootstro-title="fourteenth popover")
+                h3 11: Borrower 2 Income
+                h5 Monthly gross income of second borrower. Can be used to enter additional income of main borrower. 
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="14", data-bootstro-title="fifteenth popover")
+                h3 12: Borrower 3 Income
+                h5 Monthly gross income of third borrower. Can be used to enter additional income of main borrower.  
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="15", data-bootstro-title="sixteenth popover")
+                h3 13: Helps you compute monthly gross income 
+                  span.label.label-success  Automatically computed
+                h5 A module where you enter hourly, bi-weekly, or yearly income to compute monthly gross income.
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="16", data-bootstro-title="seventeenth popover")
+                h3 14: Target Income 
+                  span.label.label-success  Automatically computed
+                h5 After entering the debt, look here for ideal income for the desired purchase price. 
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="17", data-bootstro-title="eighteenth popover")
+                h3 15: Remaining Income 
+                  span.label.label-success  Automatically computed
+                h5 This number shows the amount of money your client needs to achive the target income. If value is negative, you have surpassed the target income and should recieve a good grade.
+
+
+            .row
+              .span12
+                .page-header
+                  h1 Results
+
+
+            .row
+              .span12    
+                img.bootstro(src = '/img/calculatorStepFour.jpg',data-bootstro-step="18", data-bootstro-title="nineteenth popover",data-bootstro-placement='bottom',data-bootstro-width='500px')
+
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="19", data-bootstro-title="twentieth popover")
+                h3 16: Need Corborrower 
+                  span.label.label-success  Automatically computed
+                h5 If the desired purchase price is above what your client can afford, we will suggest an additioal borrower here. In the absense of a possible coborrower, you may reduce house price to achieve a better grade.
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="20", data-bootstro-title="twenty-one popover")
+                h3 17: Status 
+                  span.label.label-success  Automatically computed
+                h5 Once we grade your client, we provide a suggestion on possible actions.
+
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="21", data-bootstro-title="twenty-two popover")
+                h3 18: Ratio 
+                  span.label.label-success  Automatically computed
+                h5 
+            .row
+              .span9.offset1.bootstro(,data-bootstro-step="22", data-bootstro-title="twenty-three popover")
+                h3 19: Client Grade 
+                  span.label.label-success  Automatically computed
+                h5 This grading will help you classify, schedule, and prioritize your clients. Identifying who to concentrate in days, weeks, or months. And now it is up to you to work as a team with the loan officer, to earn the suggested income of all your classified clients.
+
+
+
+
+
+
+
+    
+prepend footer
+  hr
+  .row
+    .span2
+      p 
+    .span2
+      p 
+    .span2
+      p 
+    .span2
+      a(href='/termsandconditions') Terms of service
+    .span2
+      a(href='/privacypolicy') Privacy policy
+    .span2
+      a(href='/contactus') Contact us
+
+ 
+append footer
+  script(src = '/js/libs/jquery.validate.min.js')
+  script(src = '/js/enter.js')
+  script(src = '/js/libs/jquery.maskInput.min.js')
+ 
+  script(src='/js/libs/bootstro/bootstro.js');
+  script
+    $(document).ready(function () {
+        $('.gradeA').css({"color":"green"});
+        $('.gradeB').css({"color":"#FF7F24"});
+        $('.gradeC').css({"color":"red"});
+        $('.gradeD').css({"color":"darkred"});
+        //bootstro.start($('.demoStart'), options);
+        $(".demoStart").click(function(){
+            bootstro.start();    
+        });
+      });
+
+
+
+
+
+

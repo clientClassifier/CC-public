@@ -1,0 +1,13 @@
+.well(style='padding: 8px 0;')
+  ul.nav.nav-list
+    li.nav-header Action pages
+    - var unassignedActive = (title == 'unassigned' ? 'active' : '')
+    li(class = unassignedActive)
+      a(href='/admin/#{adminId}/unassigned')
+        i.icon.icon-list 
+        |  Unassigned  
+    - var unassignedActive = (title == 'Consumer Leads' ? 'active' : '')
+    li(class = unassignedActive)
+      a(href='/admin/#{adminId}/consumerleads/1')
+        i.icon.icon-list 
+        |  Consumer Leads  

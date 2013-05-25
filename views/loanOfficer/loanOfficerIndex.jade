@@ -1,0 +1,94 @@
+
+
+extends ../layout
+
+
+block contents
+  .container
+    .row
+      .span3
+        include ../Blocks/sidebar_loanOfficers
+      .span9
+        .row
+          .span
+            img#homeshift(src='/img/HOMEICON3.jpg', width='50', height='50' )
+          .span7
+            h2 Welcome #{userFirstName} #{userLastName}
+        table.table.table-bordered.table-condensed
+          thead
+            tr
+              th.span1 Grade
+              th DTI 
+              th Loan
+              th.span2 Client Name
+              //- th Client Cell
+              th Agent Name
+              //- th Agent Cell
+              th Existed
+              th Com
+              //-th Owner
+              //- th Action
+            each client, i  in clients
+              tbody
+                // - var rowAlert = (typeof(client.disputeId) != 'undefined'  && (client.disputeId.agentRequest == 1 || client.disputeId.clientRequest == 1 || client.disputeId.loanOfficerRequest == 1 )? "error" : ""); 
+                - var rowAlert = (client.dispute._id == null ? "" : "error")
+                tr(class = rowAlert)
+                  td #{client.calculator.grade}
+                  td #{client.calculator.frontDTI} / #{client.calculator.backDTI}
+                  td.isMoney #{client.calculator.loanAmount}
+                  td 
+                    a.btn.btn-success.btn-block(href='/loanofficer/#{agentId}/client/#{client._id}') #{client.firstName} #{client.lastName}
+                  //- td #{client.cellPhone}
+                  td #{client.agent.firstName} #{client.agent.lastName}
+                  //- td #{client.agent.cellPhone}
+                  td #{client.timeAgo}
+                  - if(typeof(client.loanOfficerUnseenCommunication) != 'undefined' && client.loanOfficerUnseenCommunication != 0)
+                    td 
+                      span.badge.badge-warning#communicationNotification #{client.loanOfficerUnseenCommunication}
+                  - else
+                   td 
+                  //- td 
+                  //-   button.btn.btn-info(href='#', data-userid='#{agentId}', data-clientId='#{client._id}', data-toggle='modal', data-target='#assignLoanOfficer') Assign
+
+
+
+
+
+
+  #assignLoanOfficer.modal.hide.fade 
+    .modal-header
+      a.close(href='#', data-dismiss='modal') ×
+      h3 Select Loan Officer to handle this client
+    .modal-body
+          p.client
+          ul
+          each Lo in allLO
+              li 
+                button.btn.btn-primary(data-dismiss='modal') Assign to: #{Lo.firstName} #{Lo.middleName} #{Lo.lastName} 
+              br
+    .modal-footer              
+    //
+      p where i put the button
+      button.btn.btn-primary(data-dismiss='modal') Assign
+
+
+
+
+append footer
+  script(src='/js/libs/jquery.currency.js', type='text/javascript');
+
+
+
+  script
+    $(document).ready(function () {
+      
+      $('#assignLoanOfficer').on('show', function (event) {
+      var client = $(this).data('modal').options.clientid;
+      var user = $(this).data('modal').options.userid;
+      $('.client').text('clientId = ' + client)
+      });
+      $('.isMoney').currency({
+         decimals: 0
+         });
+      })
+

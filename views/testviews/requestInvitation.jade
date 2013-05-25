@@ -1,0 +1,39 @@
+extends ../layout
+
+
+block contents
+
+  .container
+    br
+    .row
+      .span8.offset2
+
+        if(success == false)
+          h2 Enter your email to request invitation
+          form.well.form-inline#userLogin(action='/requestinvite', method='post')
+            fieldset
+              .control-group
+                .controls
+                  .input-append.offset1
+                      input#appendedInputButton.span4(type='text', name='email', placeholder = 'Email')
+                      button.btn(type='submit') Send Request
+
+
+          - if(typeof(errorsInvitation) != 'undefined')
+            each err in errorsInvitation
+              each val,key in err
+                - if(key == 'msg')
+                  .alert.alert-error.alert-block
+                    a.close(data-dismiss='alert', href='#') ×
+                    h4.alert-heading Error!
+                    p #{val}
+        else
+          .alert.alert-success.alert-block
+            a.close(data-dismiss='alert', href='#') ×
+            p your requested has been submitted. You will recieve an email shortly.
+
+
+append footer
+  script(src = '/js/libs/jquery.validate.min.js')
+  script(src = '/js/enter.js')
+  script(src = '/js/libs/jquery.maskInput.min.js')

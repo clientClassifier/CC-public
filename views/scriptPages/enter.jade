@@ -1,0 +1,122 @@
+extends ../layout
+
+
+block contents
+
+  .container
+    br
+    - if(confirmChangePassword == true)
+        .alert.alert-success.alert-block
+          p  You have successfully changed you password. Please login
+
+    - if(confirmEmail == true)
+      .alert.alert-warning.alert-block
+        p Thank you for registering! An email with a confirmation link will be sent your email. Please check spam folder if you have not received anything.
+    .row
+      .span6
+        h2 Log In
+        form.well.form-horizontal#userLoginNOTMODAL(action='/login', method='post')
+          fieldset
+            .control-group
+              label.control-label(for='Email') Email
+              .controls
+                input.span2(type='text', name='email', placeholder = 'Email')
+            .control-group
+              label.control-label(for='password') password
+              .controls
+                input.span2(type='password', name='password' ,placeholder = 'Password')
+                br
+                a(href='/forgotpassword') I forgot my password
+            .form-actions
+              button.btn.btn-success(type='submit') log In
+        - if(typeof(errorsLogIn) != 'undefined')
+          each err in errorsLogIn
+            each val,key in err
+              - if(key == 'msg')
+                .alert.alert-error.alert-block
+                  a.close(data-dismiss='alert', href='#') ×
+                  h4.alert-heading Error!
+                  p #{val}
+
+
+
+      .span6
+        h2 Registers
+        form.well.form-horizontal#registerAgentNOTMODAL(action='/register', method='post')
+          fieldset
+            .control-group
+              label.control-label(for='firstName') First name    
+              .controls.controls-row
+                  input.onlyCharacters.span2(type='text', name='firstName', placeholder='First Name')
+            .control-group
+              label.control-label(for='lastName') Last name
+              .controls
+                input.onlyCharacters.span2(type='text', name='lastName', placeholder = 'Last name')
+            .control-group
+              label.control-label(for='email') Email
+              .controls
+                input#email.span2(type='text', name='email', placeholder = 'Email')
+            .control-group
+              label.control-label(for='confirmEmail') Confirm Email
+              .controls
+                input#confirmEmail.span2(type='text', name='confirmEmail', placeholder = 'Confirm Email')
+            .control-group
+              label.control-label(for='password') Password
+              .controls
+                input#password.span2(type='password', name='password' ,placeholder = 'Password')
+            .control-group
+              label.control-label(for='cellPhone') Cell Phone
+              .controls
+                input#cellPhone.span2.isPhone(type='text',  name='cellPhone', placeholder = 'xxx - xxx - xxxx')
+            .control-group
+              label.control-label(for='companyName') Broker Company
+              .controls
+                input#companyName.onlyCharactersWithSpace.span2(type='text',  name='companyName', placeholder = 'Company name')           
+            .control-group
+              label.control-label(for='companyPhone') Company Phone
+              .controls
+                input#companyPhone.span2.isPhone(type='text',  name='companyPhone', placeholder = 'xxx - xxx - xxxx')  
+            .control-group
+              label.control-label(for='TOS') 
+                a(href='/termsandconditions', target ='_blank') Agree to Terms of Service
+              .controls
+                input#TOS(type='checkbox', name='TOS')
+            .form-actions
+              button.btn.btn-success(type='submit') Register
+
+        - if(typeof(errorsRegister) != 'undefined')
+          each err in errorsRegister
+            each val,key in err
+              - if(key == 'msg')
+                .alert.alert-error.alert-block
+                  a.close(data-dismiss='alert', href='#') ×
+                  h4.alert-heading Error!
+                  p #{val}
+
+prepend footer
+  hr
+  .row
+    .span2
+      p 
+    .span2
+      p 
+    .span2
+      p 
+    .span2
+      a(href='/termsandconditions') Terms of service
+    .span2
+      a(href='/privacypolicy') Privacy policy
+    .span2
+      a(href='/contactus') Contact us
+
+
+
+append footer
+  script(src = '/js/libs/jquery.validate.min.js')
+  script(src = '/js/enter.js')
+  script(src = '/js/libs/jquery.maskInput.min.js')
+  
+
+
+
+

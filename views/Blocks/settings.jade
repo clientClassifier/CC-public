@@ -1,0 +1,282 @@
+mixin showMessagePayment(text,access)
+  -if(text && access){
+    .alert.alert-warning.alert-block
+      a(data-dismiss="alert", href="#").close x
+      h5.alert-heading To receive Texts you need to pay $10.00
+  -}
+mixin showTab(type,event,text,access)
+  -access=!access
+  .row
+    .span12
+      .row
+        .span12
+          h3 Specific Updated
+          #errorSocket
+          .pay
+            mixin showMessagePayment(text,access)
+  - if(type=="realEstateAgent")         
+      .row
+        .span12
+          .row
+            .span
+              img#homeshift(src='/img/document check off 2.jpg', width='50', height='50' )
+            .span2
+              h3 Prequal
+            .span1.offset5
+            br
+          table.table.table-condensed.tableclass.well
+            thead
+              th 2 years W2's
+              th 2 years Taxes
+              th Last 2 pay stubs
+              th Last 2 bank statements 
+              th Prequal      
+            tbody
+              td
+                input.W2(type='checkbox', disabled=access,  checked=event.W2, value='W2') 
+              td 
+                input.taxes(type='checkbox', disabled=access, checked=event.taxes, value='taxes')
+              td 
+                input.payStub(type='checkbox', disabled=access, checked=event.payStub, value='payStub')
+              td 
+                input.bankStatements(type='checkbox', disabled=access, checked=event.bankStatements, value='bankStatements')
+              td 
+                input.prequal(type='checkbox', disabled=access, checked=event.prequal, value='prequal')
+  - if(type=="loanOfficer")
+      .row
+        .span12
+          .row
+            .span
+              img#homeshift(src='/img/Real estate process.jpg', width='50', height='50' )
+            .span7
+              h3 Agent progress
+          table.table.table-condensed.tableclass.well
+            thead
+              th Prequal
+              th Show house
+              th Made offer
+              th Accepted offer       
+              //- th Appriasal
+              th EMD
+              th Open Escrow
+            tbody
+              td 
+                input.prequalAgent(type='checkbox', disabled=access, checked=event.prequalAgent, value='prequalAgent') 
+              td 
+                input.showHouses(type='checkbox', disabled=access, checked=event.showHouses, value='showHouses')
+              td 
+                input.madeOffer(type='checkbox', disabled=access, checked=event.madeOffer, value='madeOffer')
+              td 
+                input.offerStatus(type='checkbox', disabled=access,  checked=event.offerStatus, value='offerStatus')
+              //- td 
+              //-   input#appraisal(type='checkbox',  value='appraisal')
+              td 
+                input.EMD(type='checkbox', disabled=access, checked=event.EMD, value='EMD')
+              td 
+                input.escrow(type='checkbox', disabled=access, checked=event.escrow, value='escrow')
+                 
+                //- input#closed(type='checkbox', value='closed')
+            thead
+              th Prelim
+              th Escrow Instructions
+              th RE disclosures
+              th Home inspections
+              th NTP
+              th FWT
+            tbody
+              td 
+                input.prelim(type='checkbox', disabled=access,  checked=event.prelim, value='prelim')
+              td 
+                input.escrowInstruction(type='checkbox', disabled=access,  checked=event.escrowInstruction, value='escrowInstruction') 
+              td 
+                input.reDisclosures(type='checkbox', disabled=access,  checked=event.reDisclosures, value='reDisclosures')
+              td 
+                input.homeInspections(type='checkbox', disabled=access, checked=event.homeInspections, value='homeInspections')
+              td 
+                input.NTP(type='checkbox', disabled=access,  checked=event.NTP, value='NTP')
+              td 
+                input.FWT(type='checkbox', disabled=access,  checked=event.FWT, value='FWT')  
+  - if(type=="realEstateAgent")
+      .row
+        .span12
+          .row
+            .span
+              img#homeshift(src='/img/application icon 2.jpg', width='50', height='50' )
+            .span7
+              h3 Loan progress
+          table.table.table-condensed.tableclass.well
+            thead
+              th Credit
+              th License
+              th SS#
+              th 1003
+              th Signed
+              th Submission form         
+              th Pre-approved
+            tbody
+              td 
+                input.credit(type='checkbox', disabled=access, checked=event.credit, value='credit')
+              td 
+                input.driversLicense(type='checkbox', disabled=access, checked=event.driversLicense, value='driversLicense') 
+              td 
+                input.socialSecurityCard(type='checkbox', disabled=access, checked=event.socialSecurityCard, value='socialSecurityCard')
+              td 
+                input.application(type='checkbox', disabled=access, checked=event.application, value='application')
+              td 
+                input.signed(type='checkbox', disabled=access, checked=event.signed, value='signed')
+              td 
+                input.submissionForm(type='checkbox', disabled=access, checked=event.submissionForm, value='submissionForm')
+              td 
+                input.preApproved(type='checkbox', disabled=access, checked=event.preApproved, value='preApproved')   
+            thead
+              th Updated Docs
+              th Loan submitted
+              th Appraisal
+              th Approval
+              th Prior to Docs
+              th Loan Docs
+              //- th PTF conditions
+              th Funding
+            tbody
+              td 
+                input.updatedDocs(type='checkbox', disabled=access, checked=event.updatedDocs, value='updatedDocs') 
+
+              td 
+                input.subOfLoan(type='checkbox', disabled=access, checked=event.subOfLoan, value='subOfLoan')
+              td 
+                input.appraisal(type='checkbox', disabled=access, checked=event.appraisal, value='appraisal')
+              td 
+                input.approved(type='checkbox', disabled=access, checked=event.approved, value='approved')
+              td 
+                input.priorToDocs(type='checkbox', disabled=access, checked=event.priorToDocs, value='priorToDocs')
+              td 
+                input.conditions(type='checkbox', disabled=access, checked=event.conditions, value='conditions')
+              //- td 
+              //-   input#PTFconditions(type='checkbox', value='PTFconditions')
+              td 
+                input.funding(type='checkbox', disabled=access, checked=event.funding, value='funding')   
+
+
+extends ../layout
+
+block contents
+  input#userType(type='hidden', name='userType', value='#{userType}')
+  input#eventType(type='hidden', name='eventType', value='email')
+  .container
+      .row
+        .span12
+          ul#infoTab.nav.nav-tabs
+            li(class = "active")
+              a(href='#email', data-toggle='tab') Email
+            li
+              a(href='#text', data-toggle='tab') Text
+            li
+              a(href='#payment', data-toggle='tab') Payment
+            li
+              a(href='#actions', data-toggle='tab') Actions
+            -if (privileges==true)    
+              - var useType = (userType != 'realEstateAgent' ? "Loan Officer" : "Agent"); 
+              if (userType == 'realEstateAgent')
+                li
+                  a(href='#addUserToGroup', data-toggle='tab') Add #{useType} 
+              if (userType == 'loanOfficer')
+                li
+                  a(href='#addUserToGroup', data-toggle='tab') Add #{useType}
+          .tab-content
+                div(id = 'email').tab-pane.active
+                  mixin showTab(userType, subscribedEvents.doc.email, false,subscribedEvents.accessTo.email)
+                div(id = 'text').tab-pane
+                  mixin showTab(userType,subscribedEvents.doc.text, true,subscribedEvents.accessTo.text)
+                div(id = 'payment').tab-pane
+                  .row
+                    .span9
+                      p payments
+                div(id = 'actions').tab-pane
+                  .row
+                    .span12
+                      .row
+                        .span
+                          img#homeshift(src='/img/loan officer ideas.jpg', width='50', height='50' )
+                        .span2
+                          h3 Action 
+                        .span1.offset5
+                      br
+                      table.table.table-condensed.tableclass.well
+                        thead
+                          th Available actions
+                          th 
+                        tbody
+                          td.span4 1. change privileges.
+                            
+                          td 
+                            button.btn.btn-primary#createGroupLeaderButton(href='#', data-toggle='modal', data-target='#CreateBrokerLeader', disabled=leaderId) I am the group leader
+                
+                  .row  
+                    .span12#msgActions
+
+                      //-   strong Name Boss  : 
+                      //-   span Tes                      //- div(class='alert alert-block alert-success')ting
+                -if (privileges==true)    
+                  div(id='addUserToGroup').tab-pane
+                    .row
+                      .span12
+                        .alert.alert-info
+                          form#addUserForm(action="javascript:", method='post')
+                              input#userType(type='hidden', name='userType', value='#{userType}')
+                              input#userCell(type='hidden', name='userCell', value='#{cellPhone}') 
+                              input#userEmail(type='hidden', name='userEmail', value='#{email}') 
+                              input#userName(type='hidden', name='userCell', value='#{userName}')   
+                              .control-group
+                                  label.control-label Add #{useType}
+                                  .controls
+                                    input#addUser(type='text', name='addUser', placeholder = 'Email of #{useType}')
+                              button.btn.btn-primary(type='submit') Add #{useType}
+           
+                    .row          
+                      .span12
+                        #msgAddUser
+                    .row
+                      .span12
+                        table#addUserTable.table.table-bordered.table-condensed
+                          thead
+                            tr
+                              th #{useType} Name
+                              th #{useType} Phone
+                              th #{useType} Email
+                              th Date Added 
+                          tbody
+                            each user in OfficeEmployees
+                              tr
+                                td #{user.name}
+                                td #{user.cellPhone}
+                                td #{user.email}
+                                td #{user.dateAdded}
+  #CreateBrokerLeader.modal.hide.fade 
+    .modal-header
+      a.close(href='#', data-dismiss='modal') ×
+      h4 Create group to lead!
+    .modal-body
+      
+      .span6
+        h5 Company name must be the same one you registered with.
+        form.form-horizontal#CreateBrokerLeaderForm(action='javascript:', method='post')    
+          fieldset
+            .control-group
+              label.control-label(for='groupName') Group Name : 
+              .controls
+                input.onlyCharactersWithSpace(type='text', id='groupName', name='groupName', placeholder = 'Group Name') 
+            .control-group
+              label.control-label(for='companyName') Company name : 
+              .controls
+                input.onlyCharactersWithSpace(type='text', id='companyName', name='companyName', placeholder = 'Company name') 
+            //- .control-group
+            //-   label.control-label(for='securityMessage') Security Message : 
+            //-   .controls
+            //-     input(type='text', id='securityMessage', name='securityMessage', placeholder = 'Security Message')     
+            .form-actions
+              button.btn.btn-success(type='submit')#btnChangePrivileges
+                | Change Privileges
+append footer
+  script(src='/socket.io/socket.io.js', type='text/javascript');
+  script(src = '/js/libs/jquery.validate.min.js')
+  script(src='/js/userSettings.js');

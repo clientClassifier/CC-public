@@ -1,0 +1,433 @@
+extends ../layout
+
+block contents
+  .algo
+    .navbar.navbar-fixed-top.clientNav
+      .navbar-inner
+        .container
+          a.btn.btn-navbar(data-toggle='collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar 
+          a.brand(href='#') Client                  
+          .nav-collapse            
+            ul.nav
+              li.active
+                a(href='#Status') Status 
+              li
+                a(href='#Information') Information                
+              li
+                a(href='#Instructions') Instructions
+              li
+                a(href='#Communication') Communication
+              li
+                a(href='#Happiness') Happiness  
+            .btn-group.pull-right
+                a.btn.btn-danger(href='/logout') logout
+
+
+    section#Status
+      .container
+        .row 
+          div.navbar.navbar-inner.span12
+            h4 Status        
+          .row.well.span12
+            .row
+              .span12
+                .row
+                  .span
+                    img(src='/img/document check off 2.jpg', width='50', height='50' )
+                  .span2
+                    h3 Prequal
+                  .span1.offset5
+                    //- if(currentClient.allInstructionsCompleted == false)
+                    //-   img.warningSign(src='/img/warning icons.jpg', width='50', height='50' )
+                br
+                table.table.table-condensed.tableclass.well
+                  thead
+                    th 2 years W2's
+                    th 2 years Taxes
+                    th Last 2 pay stubs
+                    th Last 2 bank statements 
+                    th Prequal      
+                  tbody
+                    td 
+                      input(type='checkbox', disabled="disabled", value='W2',checked=user.documentation.W2) 
+                    td 
+                      input(type='checkbox', disabled="disabled", value='taxes', checked=user.documentation.taxes)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='payStub', checked=user.documentation.payStub)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='bankStatements', checked=user.documentation.bankStatements)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='prequal',checked=user.documentation.prequal)
+            .row
+              .span12
+                .row
+                  .span
+                    img(src='/img/Real estate process.jpg', width='50', height='50' )
+                  .span7
+                    h3 Agent progress
+                table.table.table-condensed.tableclass.well
+                  thead
+                    th Prequal
+                    th Show house
+                    th Made offer
+                    th Accepted offer       
+                    th EMD
+                    th Open Escrow
+                  tbody
+                    td 
+                      input(type='checkbox', disabled="disabled",  value='prequalAgent', checked=user.documentation.prequalAgent) 
+                    td 
+                      input(type='checkbox', disabled="disabled", value='showHouses', checked=user.documentation.showHouses)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='madeOffer', checked=user.documentation.madeOffer)
+                    td 
+                      input(type='checkbox', disabled="disabled",  value='offerStatus', checked=user.documentation.offerStatus)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='EMD', checked=user.documentation.EMD)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='escrow', checked=user.documentation.escrow)
+                       
+                     
+                  thead
+                    th Prelim
+                    th Escrow Instructions
+                    th RE disclosures
+                    th Home inspections
+                    th NTP
+                    th FWT
+                  tbody
+                    td 
+                      input(type='checkbox', disabled="disabled",  value='prelim', checked=user.documentation.prelim)
+                    td 
+                      input(type='checkbox', disabled="disabled",  value='escrowInstruction',checked=user.documentation.escrowInstruction) 
+                    td 
+                      input(type='checkbox', disabled="disabled",  value='reDisclosures', checked=user.documentation.reDisclosures)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='homeInspections', checked=user.documentation.homeInspections)
+                    td 
+                      input(type='checkbox', disabled="disabled",  value='NTP', checked=user.documentation.NTP)
+                    td 
+                      input(type='checkbox', disabled="disabled",  value='FWT', checked=user.documentation.FWT)    
+            .row
+              .span12
+                .row
+                  .span
+                    img(src='/img/application icon 2.jpg', width='50', height='50' )
+                  .span7
+                    h3 Loan progress
+                table.table.table-condensed.tableclass.well
+                  thead
+                    th Credit
+                    th License
+                    th SS#
+                    th 1003
+                    th Signed
+                    th Submission form         
+                    th Pre-approved
+                  tbody
+                    td 
+                      input(type='checkbox', disabled="disabled", value='credit', checked=user.documentation.credit)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='driversLicense', checked=user.documentation.driversLicense) 
+                    td 
+                      input(type='checkbox', disabled="disabled", value='socialSecurityCard', checked=user.documentation.socialSecurityCard)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='application', checked=user.documentation.application)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='signed', checked=user.documentation.signed)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='submissionForm', checked=user.documentation.submissionForm)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='preApproved', checked=user.documentation.preApproved)   
+                  thead
+                    th Updated Docs
+                    th Loan submitted
+                    th Appraisal
+                    th Approval
+                    th Prior to Docs
+                    th Loan Docs
+                    th Funding
+                  tbody
+                    td 
+                      input(type='checkbox', disabled="disabled", value='updatedDocs', checked=user.documentation.updatedDocs) 
+
+                    td 
+                      input(type='checkbox', disabled="disabled", value='subOfLoan', checked=user.documentation.subOfLoan)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='appraisal', checked=user.documentation.appraisal)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='approved', checked=user.documentation.approved)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='priorToDocs', checked=user.documentation.priorToDocs)
+                    td 
+                      input(type='checkbox', disabled="disabled", value='conditions', checked=user.documentation.conditions)            
+                    td 
+                      input(type='checkbox', disabled="disabled", value='funding', checked=user.documentation.funding)
+    section#Information
+      .container
+        .row
+          div.navbar.navbar-inner.span12        
+            h4 Information 
+          .row.well.span12
+            .row
+              .span12
+                .row
+                  .span
+                    img(src= '/img/client icon6.jpg', width='50', height='50')
+                  .span7
+                      h3 Client
+                table.table.table-condensed.tableclass.well
+                  thead
+                    th Grade
+                    th Home
+                    th Cell           
+                    th Coborrower
+                    th 2.5
+                    th 3.0
+                  tbody    
+                    td #{user.calculator.grade}
+                    td #{user.homePhone}
+                    td #{user.cellPhone}           
+                    td #{user.calculator.needCoborrower}
+                    td #{user.commission.twoFive}
+                    td #{user.commission.threeEven}
+            .row
+              .span12
+                .row
+                  .span
+                    img(src= '/img/agentFace.jpg', width='50', height='50')
+                  .span7
+                    h3 Agent
+                table.table.table-condensed.tableclass.well
+                  thead
+                    th Name
+                    th Cell           
+                    th Company            
+                    th Email    
+                  tbody
+                    td #{user.agent.firstName} #{user.agent.lastName}
+                    td #{user.agent.cellPhone}
+                    td #{user.agent.brokerCompany}
+                    td 
+                     a(href='mailto:#{user.agent.email}?subject=Clientclassifer: ') #{user.agent.email}
+            .row
+              .span12
+                .row
+                  .span
+                    img(src= '/img/agentFace.jpg', width='50', height='50')
+                  .span7
+                    h3 Officer
+                table.table.table-condensed.tableclass.well
+                  thead
+                    th Name
+                    th Cell           
+                    th Company            
+                    th Email    
+                  tbody
+                    td #{user.loanOfficer.firstName} #{user.loanOfficer.lastName}
+                    td #{user.loanOfficer.cellPhone}
+                    td #{user.loanOfficer.brokerCompany}
+                    td 
+                     a(href='mailto:#{user.loanOfficer.email}?subject=Clientclassifer: ') #{user.loanOfficer.email}
+    section#Instructions
+      .container
+        .row
+          div.navbar.navbar-inner.span12
+            h4 Instructions
+          .row.well.span12       
+            .row
+              .span
+                img(src='/img/loan officer ideas.jpg', width='50', height='50' )
+              .span7
+                h3 Loan officer instructions
+              .span12
+                - if(user.instructions.length == 0)
+                  .alert.alert-info.alert-block
+                    h5 Instructions are given after a schedule meeting.
+                - else
+                  each instruction, i  in user.instructions
+                    - var isCompletedCheck = (instruction.completed == true ? 'checked' : 'unchecked') 
+                    - if(isCompletedCheck == 'checked')
+                      .alert.alert-success.alert-block
+                        .row
+                          .span9
+                            p 
+                              strong Step #{i+1} : 
+                              | #{instruction.text}
+                          .span1   
+                            label.span1.checkbox
+                              input(type="checkbox", name='clientConfirm', disabled = 'disabled', checked) 
+                              | Completed              
+                    - else
+                      .alert.alert-info.alert-block
+                        .row
+                          .span9
+                            p 
+                              strong Step #{i+1} : 
+                              | #{instruction.text}
+                          .span1   
+                            label.span1.checkbox
+                              input(type="checkbox", name='clientConfirm', disabled = 'disabled') 
+                              | Completed                               
+    section#Communication
+      .container
+        .row  
+          div.navbar.navbar-inner.span12
+            h4 Communication
+          .row.well.span12
+            .row
+              .span
+                img#homeshift(src= '/img/waiting.jpg', width='50', height='50')
+              .span7
+                  h3 Communicate with Loan Officer                    
+              .span12
+                .row
+                  .span12                
+                    br
+                    br
+                    div
+                      each message in user.communication
+                        
+                        if(message.userType == 'realEstateAgent') 
+                          .alert.alert-info.alert-block
+                            .row
+                                .span2
+                                  p 
+                                    strong #{message.userName}:
+                                    br
+                                    | #{message.formatDate} 
+                                .span5
+                                  p #{message.text}                            
+                        if(message.userType == 'loanOfficer') 
+                          .alert.alert-success.alert-block
+                            .row
+                                .span2
+                                  p 
+                                    strong #{message.userName}:
+                                    br
+                                    | #{message.formatDate} 
+                                .span5
+                                  p #{message.text}         
+        
+
+    section#Happiness
+      .container
+        .row 
+          div.navbar.navbar-inner.span12
+            h4 Happiness        
+          .row.well.span12
+            .row
+              .span12
+                .row
+                  .span
+                    img(src='/img/document check off 2.jpg', width='50', height='50' ) 
+                  .span5
+                    h3 Happiness
+                    .row
+                      .span3
+                        h4 How happy are you?
+                      .span2
+                        form.form-search                         
+                          .input-append
+                              input.pull-left.span2.search-query#happyness(type='text', maxlength='3', value='#{happyness2.value}')
+                              input(type='hidden', name='clientId', value='#{user._id}') 
+                              button.btn#happynessChange Send                         
+ 
+                                            
+                        //- input.span2.onlyNumbers#happyness(type='text', maxlength='3', value='#{happyness2.value}'  )
+                        //- input(type='hidden', name='clientId', value='#{user._id}')                        
+                        //- button.btn#happynessChange(type='submit') Send
+                    br                   
+                  .span12
+                    .progress                    
+                      .bar#happyBar(style='width: ;')                    
+                      //- .bar#happyBarDanger(style='width: ;')                      
+                      //- .bar.bar-warning#happyBarWarning(style='width: ;')
+                      //- .bar.bar-success#happyBarSuccess(style='width: ;')
+                      //- .bar.bar-info#happyBarInfo(style='width:;')       
+                    
+                           
+        .span12          
+          a.btn.btn-large.btn-block.btn-primary#toTop(href='#Status') To Top
+append footer
+  script(src='/socket.io/socket.io.js', type='text/javascript');
+  script
+    $(document).ready(function(){     
+      var socket = io.connect();
+        var happyness = parseInt( $("#happyness").val()); 
+        console.log($('#happyness').val())
+       if(($('#happyness').val())<=20){
+       console.log('1')
+          $('#happyBar').css('width',((happyness-6)*10)).addClass("bar-danger");
+        } else if(($('#happyness').val())<=45){
+        console.log('2')
+          $('#happyBar').css('width',((happyness-6)*10)).addClass("bar-warning");
+        } else if(($('#happyness').val())<=75){
+          console.log('3')
+          $('#happyBar').css('width',((happyness-6)*10)).addClass("bar-info");
+        } else if(($('#happyness').val())<=100){
+        console.log('4')
+          $('#happyBar').css('width',((happyness-6)*10)).addClass("bar-success");
+        }    
+
+
+      socket.on('updatedSuccessfull', function(data){
+        //do smoethign
+        console.log('server gave me : ' + JSON.stringify(data,null,'\t'))
+      })    
+
+      $("#happynessChange").click(function(e) {
+        e.preventDefault();
+        console.log('happyness changed')
+        console.log($('#happyness').val())   
+        console.log($('#happyBar').css('width'))         
+        var happyness = parseInt( $("#happyness").val()); 
+        var className = $('#happyBar').attr('class');
+        console.log('className: '+className);
+        var n=className.split(" ");
+        console.log('name = ' + n[1])
+          $('#happyBar').removeClass(n[1]);
+        if(($('#happyness').val())<=20){
+          $('#happyBar').css('width',((happyness-6)*10)).addClass("bar-danger");
+        } else if(($('#happyness').val())<=45){
+          $('#happyBar').css('width',((happyness-6)*10)).addClass("bar-warning");
+        } else if(($('#happyness').val())<=75){
+          $('#happyBar').css('width',((happyness-6)*10)).addClass("bar-info");
+        } else if(($('#happyness').val())<=100){
+          $('#happyBar').css('width',((happyness-6)*10)).addClass("bar-success");
+        }    
+
+        //- $('#happyBar').removeClass(n[1]).addClass(newclass);
+       
+         socket.emit('updateHappyness',{value: $('#happyness').val(), comment: 'i am happy', clientId:'#{user._id}'})   
+      });          
+          
+      $('.onlyNumbers').keyup(function() {
+        $(this).val($(this).val().replace(/[^0-9]/g,''));
+      });
+      //- $('#happyness').change(function(){
+      //-   console.log('happyness changed')
+      //-   console.log($('#happyness').val())
+
+      //-   })
+
+
+      var offset = 90;
+      $('#toTop').click(function(event){
+          event.preventDefault();
+          //- $($(this).attr('href'))[0].scrollIntoView();
+          //- scrollBy(0, -100);  
+          $('html, body').animate({ scrollTop: -100 }, 300);
+     
+      })
+
+      $('.navbar li a').click(function(event) {
+          event.preventDefault();
+          $($(this).attr('href'))[0].scrollIntoView();
+          scrollBy(0, -offset);
+      });
+    })

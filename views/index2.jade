@@ -1,0 +1,265 @@
+extends layout
+
+
+
+block contents
+
+
+  
+  .container
+    .row
+      .span2
+        h1
+      .span8.pagination-centered
+        //- h2 Make all your prospects into clients
+        h2 Convert prospects to clients
+      .span2
+        h1
+        
+    .row
+        //- .hero-unit
+        //-   h1 Client Classifier
+        //-   p Optimize your work schedule      
+        //- button.btn.btn-success.btn-block(href='#', data-toggle='modal', data-target='#register') Register for FREE now 
+        //- iframe#videoShift(src='http://player.vimeo.com/video/39285609', width='500', height='275', frameborder='0', webkitallowfullscreen='webkitAllowFullScreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowFullScreen')
+        //-   p
+        //-       a(href='http://vimeo.com/39285609') Movitz!
+        //-       | from
+        //-       a(href='http://vimeo.com/user4665286') Peter Sporremark
+        //-       | on
+        //-       a(href='http://vimeo.com') Vimeo
+        //-       | .      
+      .span2
+        h1
+      .span8
+        //iframe#videoShift2(src = '/img/agentIndex.jpg', width='530', height='295');
+        //img(src = '/img/agentIndex.jpg', width='500', height='275');
+        #myCarousel.carousel.slide(width='600', height='338')
+          .carousel-inner
+            .active.item
+              img(src = '/img/agentIndex.jpg', width='600', height='338');
+              .carousel-caption
+                h4 Organize your client list
+                p
+                  | Track the progess of your clients as you work with the loan officer
+            .item
+              img(src = '/img/agentCalc1.jpg', width='600', height='338');
+              .carousel-caption
+                h4 Easy morgage calculator
+                p
+                  | No more difficult computations, its done for you!
+            .item
+              img(src = '/img/agentCalc2.jpg', width='600', height='338');
+              .carousel-caption
+                h4 Enter clients income and debt.
+                p
+                  | Boom! Identify your clients ability to purchase.
+            .item
+              img(src = '/img/trackprogress.jpg', width='600', height='338');
+              .carousel-caption
+                h4 Track Progress
+                p
+                  | Review loan officer progress as well as your own
+            .item
+              img(src = '/img/communication.jpg', width='600', height='338');
+              .carousel-caption
+                h4 Communication
+                p
+                  | Communicate with loan officer
+            .item
+              img(src = '/img/instructions.jpg', width='600', height='338');
+              .carousel-caption
+                h4 Instructions
+                p
+                  | Receive task from the loan officer to move client forward
+
+          a.carousel-control.left(href='#myCarousel', data-slide='prev') ‹
+          a.carousel-control.right(href='#myCarousel', data-slide='next') ›
+
+      .span2
+        h1        
+
+
+
+
+      //- .span5
+        //- table.table.table-bordered
+        //-   thead
+        //-     tr
+        //-       th.span2 Before
+        //-       th.span1
+        //-       th.span2 After
+        //-     tr
+        //-       td Uncertainty of clients purchasing power
+        //-       td 
+        //-         img#arrowShiftRight(src = '/img/Kudos_for_Webdesigntuts/Right.png')
+        //-       td Quickly asses clients purchasing power
+        //-     tr
+        //-       td Haggling loan officer for information
+        //-       td
+        //-         img#arrowShiftRight(src = '/img/Kudos_for_Webdesigntuts/Right.png')
+        //-       td Access information anytime
+        //-     tr
+        //-       td Difficulty deciding which client to pay attention to
+        //-       td
+        //-         img#arrowShiftRight(src = '/img/Kudos_for_Webdesigntuts/Right.png')
+        //-       td Easly understand which clients to push today, next week or month
+        //-     tr
+        //-       td Disorganized client pipeline manger
+        //-       td
+        //-         img#arrowShiftRight(src = '/img/Kudos_for_Webdesigntuts/Right.png')
+        //-       td Organized pipeline with prirorities 
+
+        
+        //- .page-header
+        //-   h2
+        //-     | Client Classifier Features
+        //- ul
+        //-   li Prioritize clients according to financial picture
+        //-     ul
+        //-       li Know how much of a house a client can purchse in minutes
+        //-   li Focus on 'A' grade clients now
+        //-     ul
+        //-       li Become a top producer by knowing which clients to help NOW!
+        //-   li Organize client list according to days weeks and months
+        //-     ul
+        //-       li Optimize your time by focusing on A clients, while we work the 'C' and 'D' clients       
+        //-     //- li Easy access communication with loan officer
+        //-     //- li Become top producer by optimizing who to focus on
+        //-     //- li 
+        //-     //- li Focus on A and B papers while we work on the rest
+        //-     //- li Helps you schedule 
+
+
+
+        //- button.btn.btn-success.btn-block(href='#', data-toggle='modal', data-target='#register') Register for FREE now
+
+    .row
+      .span12
+        .page-header
+          h2
+            | How does it work?
+            small Simply
+            
+
+    .row#blockShiftRight
+      .span3
+        button.btn.btn-danger.btn-block#debt.calculatorComponent(href='#',data-trigger='manual', data-placement='bottom', rel="popover", title="1. Sum Debt: Credit Report", data-content="Monthly minimum payments") 
+          h4 1. Debt
+      .span1
+        img#imshift(src = '/img/Kudos_for_Webdesigntuts/Add.png', width='32', height='32')
+      .span3
+        button.btn.btn-success.btn-block#income.calculatorComponent(href='#',data-trigger='manual', data-placement='bottom', rel="popover", title="2. Sum Monthly Income", data-content="Calculate monthly gross income")
+          h4 2. Income
+      .span1
+        img#imshift(src = '/img/Kudos_for_Webdesigntuts/Right.png', width='32', height='32')
+      .span3
+        button.btn.btn-info.btn-block#financialPicture.calculatorComponent(href='#',data-trigger='manual', data-placement='bottom', rel="popover", title="3. Prioritize Clients", data-content="Is a prospect a real client?")
+          h4 3. Financial Picture
+    br
+    br
+    br
+    br
+    br
+    .row
+      .span12
+        .page-header
+          h2
+            | What do you get?
+            small Features
+        ol
+          li Prioritize clients according to financial picture
+            ul
+              li Know how much of a house a client can purchse in minutes
+          li Focus on 'A' grade clients now
+            ul
+              li Become a top producer by knowing which clients to help NOW!
+          li Organize client list according to days weeks and months
+            ul
+              li Optimize your time by focusing on A clients, while we work the 'B' and 'C' clients       
+            //- li Easy access communication with loan officer
+            //- li Become top producer by optimizing who to focus on
+            //- li 
+            //- li Focus on A and B papers while we work on the rest
+            //- li Helps you schedule 
+
+
+
+
+
+
+
+    br
+    .row
+      .span12
+        .page-header
+          h2
+            | Details
+            small Easy
+    .row
+      .span12
+        table.table.table-bordered
+          thead
+            tr
+              td#indexGrid Current
+              td#indexGrid
+              td#indexGrid Client Classifier
+            tr
+              td Uncertainty of clients purchasing power
+              td
+                img(src = '/img/Kudos_for_Webdesigntuts/Right.png')
+              td Quickly asses clients purchasing power
+            tr
+              td Haggling loan officer for information
+              td
+                img(src = '/img/Kudos_for_Webdesigntuts/Right.png')
+              td Access information anytime
+            tr
+              td Difficulty deciding which client to pay attention to
+              td
+                img(src = '/img/Kudos_for_Webdesigntuts/Right.png')
+              td Easly understand which clients to push today, next week or month
+            tr
+              td Disorganized client pipeline manger
+              td
+                img(src = '/img/Kudos_for_Webdesigntuts/Right.png')
+              td Organized pipeline with prirorities 
+
+
+
+    //- br
+    //- br
+    //- br
+    //- .row#shiftRight
+    //-   .span5
+    //-     h1 Before
+    //-   .span2
+    //-     img(src = '/img/Kudos_for_Webdesigntuts/Right.png')
+    //-     p save time
+    //-   .span5
+    //-     h1 After
+
+prepend footer
+    hr
+    .row
+      .span2
+        p 
+      .span2
+        p 
+      .span2
+        p 
+      .span2
+        a(href='/termsandconditions') Terms of service
+      .span2
+        a(href='/privacypolicy') Privacy policy
+      .span2
+        a(href='/contactus') Contact us
+
+append footer
+    script(src = '/js/libs/jquery.validate.min.js')
+    script(src = '/js/enter.js')
+    script(src = '/js/libs/jquery.maskInput.min.js')
+
+
+
+
